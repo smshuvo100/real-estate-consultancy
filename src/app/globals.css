@@ -1,13 +1,6 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #1b1b1b;
+  --foreground: #dddfdf;
 }
 
 html,
@@ -19,9 +12,27 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 16px;
+  line-height: 200%; /* 32px */
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+p {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 16px;
+  line-height: 200%; /* 32px */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-playfair), serif;
+  font-weight: 400;
 }
 
 * {
@@ -35,8 +46,121 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* ---------------------
+  Typography Utilities
+--------------------- */
+
+.title-1 {
+  font-size: 208px;
+  line-height: 100%; /* 291.2px */
+  text-transform: uppercase;
+  letter-spacing: 6.24px;
+}
+
+.title-2 {
+  font-size: 64px;
+  line-height: 100%; /* 89.6px */
+  letter-spacing: 1.92px;
+  text-transform: uppercase;
+}
+
+.title-3 {
+  font-size: 48px;
+  line-height: normal;
+}
+
+.title-4 {
+  font-size: 32px;
+  line-height: 140%; /* 44.8px */
+  letter-spacing: 0.96px;
+}
+
+.title-5 {
+  font-size: 24px;
+  line-height: 150%; /* 36px */
+}
+.text-1 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 200%; /* 48px */
+}
+.big-text {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 56px;
+  line-height: 139.523%; /* 78.133px */
+}
+.btn a,
+input[type="button"],
+.btn button {
+  font-family: var(--font-playfair), serif;
+  cursor: pointer !important;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-transform: capitalize;
+  border: 0;
+  background-color: var(--foreground);
+  border: 1px solid var(--foreground);
+  color: var(--background);
+  transition: all 0.3s ease-in-out;
+}
+.btn a:hover,
+input[type="button"]:hover,
+.btn button:hover {
+  background-color: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.container {
+  max-width: 1210px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.container-fluid {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.center {
+  text-align: center;
+}
+/* ---------------------
+  Hero Section
+--------------------- */
+
+section.hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  background-image: url("/images/hero.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+section.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+section.hero .container-fluid {
+  z-index: 2;
+}
+section.hero .center {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+section.hero .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
 }
