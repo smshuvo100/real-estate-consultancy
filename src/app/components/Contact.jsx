@@ -44,7 +44,7 @@ export function Contact() {
                   <label>Message</label>
                 </div>
                 <div className="btn">
-                  <button>Submit</button>
+                  <button type="submit"> Submit</button>
                 </div>
               </form>
             </div>
