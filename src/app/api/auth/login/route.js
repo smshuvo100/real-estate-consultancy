@@ -1,3 +1,4 @@
+// src/app/api/auth/login/route.js
 import { connectToDB } from "@/lib/db";
 import Admin from "@/models/Admin";
 import bcrypt from "bcryptjs";

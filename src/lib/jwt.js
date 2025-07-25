@@ -15,7 +15,6 @@ export function verifyToken(token) {
   }
 }
 
-// ✅ Add this to make authenticateRequest available
 export function authenticateRequest(req) {
   const authHeader = req.headers.get("authorization");
   const token = authHeader?.split(" ")[1];

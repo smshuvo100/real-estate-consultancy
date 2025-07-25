@@ -1,3 +1,5 @@
+// src/middleware/auth.js
+
 import { verifyToken } from "@/lib/jwt";
 
 export function authenticateRequest(req) {
