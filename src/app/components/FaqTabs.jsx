@@ -2,12 +2,12 @@
 import { useState } from "react";
 import FaqAccordion from "./FaqAccordion";
 
-const tabs = ["Property faq", "investor faq"];
-
-export function FaqTabs() {
+export function FaqTabs({ data }) {
   const [activeTab, setActiveTab] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [direction, setDirection] = useState("right");
+
+  if (!data || !data.tabs || data.tabs.length === 0) return null;
 
   const handleTabClick = (index) => {
     if (index === activeTab) return;
@@ -16,8 +16,10 @@ export function FaqTabs() {
     setTimeout(() => {
       setActiveTab(index);
       setTransitioning(false);
-    }, 300); // duration must match animation duration
+    }, 300);
   };
+
+  const currentTab = data.tabs[activeTab];
 
   return (
     <section className="faq-tabs">
@@ -25,13 +27,13 @@ export function FaqTabs() {
         <div className="flex-wrap">
           <div className="tab-box">
             <div className="tab-header">
-              {tabs.map((tab, i) => (
+              {data.tabs.map((tab, i) => (
                 <button
                   key={i}
                   className={i === activeTab ? "active" : ""}
                   onClick={() => handleTabClick(i)}
                 >
-                  {tab.toUpperCase()}
+                  {tab.label.toUpperCase()}
                 </button>
               ))}
             </div>
@@ -43,30 +45,14 @@ export function FaqTabs() {
                   transitioning ? "exit-" + direction : "enter-" + direction
                 }`}
               >
-                {activeTab === 0 && (
-                  <>
-                    <div className="flex-wrap">
-                      <div className="text-box">
-                        <h2 className="title-2">Property</h2>
-                      </div>
-                      <div className="tabsm-box">
-                        <FaqAccordion />
-                      </div>
-                    </div>
-                  </>
-                )}
-                {activeTab === 1 && (
-                  <>
-                    <div className="flex-wrap">
-                      <div className="text-box">
-                        <h2 className="title-2">Property</h2>
-                      </div>
-                      <div className="tabsm-box">
-                        <FaqAccordion />
-                      </div>
-                    </div>
-                  </>
-                )}
+                <div className="flex-wrap">
+                  <div className="text-box">
+                    <h2 className="title-2">{currentTab.title}</h2>
+                  </div>
+                  <div className="tabsm-box">
+                    <FaqAccordion items={currentTab.faqs} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

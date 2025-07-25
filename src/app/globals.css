@@ -145,14 +145,16 @@ img {
 
 section.hero {
   position: relative;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 100px 0;
-  background-image: url("/images/hero.webp");
+  padding-top: 100px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+section.hero .container {
+  z-index: 9;
+  position: relative;
 }
 section.hero .overlay {
   position: absolute;
@@ -160,7 +162,9 @@ section.hero .overlay {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+}
+section.hero .hero-bottom {
+  padding: 40px 0;
 }
 section.hero .container-fluid {
   z-index: 2;
@@ -172,9 +176,18 @@ section.hero .center {
 section.hero .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 50px;
+  gap: 40px;
 }
-
+section.hero .grid .title-5 {
+  margin-bottom: 20px;
+}
+/* -- Hero1 -- */
+section.hero .grid2 {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  display: grid;
+  align-items: center;
+}
 /* ---------------------
   Our Services
 --------------------- */
@@ -260,8 +273,8 @@ section.gallery .gallery-item.item-6 {
     About
 --------------------- */
 section.about {
-  padding-top: 00px;
-  padding-bottom: 00px;
+  margin-top: 100px;
+  margin-bottom: 100px;
   position: relative;
 }
 
@@ -271,7 +284,9 @@ section.about .flex-box {
   align-items: center;
 }
 section.about .flex-box .text-box {
+  z-index: 9;
   width: 50%;
+  position: relative;
 }
 
 section.about .flex-box .img-box.sm {
@@ -302,11 +317,15 @@ section.about .bottom-position .container {
 }
 
 section.about .flex-box {
-  height: 100vh;
+  min-height: 587px;
 }
 
 section.about .text-box h2.title-4 {
   margin-bottom: 20px;
+}
+.tab-content.sm1 {
+  background: transparent;
+  padding: 20px 0 0 0;
 }
 
 /* ---------------------
@@ -755,7 +774,7 @@ section.recent-projects-sec h2.title-4.uppercase.center {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 6px 0;
+  margin: 15px 0 0 0;
 }
 
 /* tab-box  */
@@ -773,6 +792,9 @@ section.recent-projects-sec h2.title-4.uppercase.center {
 }
 .contact-tab .flex-wrap .tab-box {
   width: 50%;
+}
+.tab-box {
+  width: 100%;
 }
 .contact-tab .flex-wrap .title-box h2.title-2 {
   text-transform: capitalize;
@@ -823,6 +845,10 @@ section.recent-projects-sec h2.title-4.uppercase.center {
 /* ---------------------
     Faq Tabs
 --------------------- */
+.faq-tabs {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
 .faq-tabs .flex-wrap {
   display: flex;
   gap: 50px;
@@ -889,9 +915,10 @@ section.recent-projects-sec h2.title-4.uppercase.center {
 }
 
 .our-team .team-grid {
-  display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  display: grid;
+  column-gap: 40px;
+  row-gap: 80px;
 }
 
 .our-team .title-4 {

@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+/src
+├── app
+│ ├── api
+│ │ ├── auth
+│ │ │ └── login
+│ │ │ └── route.js # POST app/api/auth/login/route.js
+│ │ └── blog
+│ │ ├── route.js # GET all blogs
+│ │ └── [id]
+│ │ └── route.js # GET/PUT/DELETE by ID
+│ ├── admin # Admin dashboard UI
+│ │ └── page.js
+│ ├── blog # Public blog display
+│ │ ├── page.js
+│ │ └── [slug]
+│ │ └── page.js
+│ └── components # UI-only components
+│ └── BlogCard.jsx
+│ └── LoginForm.jsx
+│ └── RichTextEditor.jsx
+│
+├── lib
+│ ├── db.js # MongoDB connection
+│ └── auth.js # Token/session functions
+│
+├── models
+│ ├── Admin.js # Mongoose admin schema
+│ └── Blog.js # Mongoose blog schema
