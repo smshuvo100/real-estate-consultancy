@@ -951,7 +951,7 @@ section.recent-projects-sec h2.title-4.uppercase.center {
 }
 
 /* ---------------------
-    
+    Property Grid
 --------------------- */
 .property-grid-section .property-grid {
   display: grid;
@@ -1228,3 +1228,96 @@ section.recent-projects-sec h2.title-4.uppercase.center {
   background: rgba(0, 0, 0, 0.8);
   z-index: 998;
 }
+
+/* ---------------------
+Login
+--------------------- */
+
+.login-wrapper {
+  background-color: var(--background);
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+  padding-top: 200px;
+}
+.login-box {
+  background-color: #262626;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--foreground);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #1b1b1b;
+  color: var(--foreground);
+  font-size: 1rem;
+}
+
+.login-input::placeholder {
+  color: #888;
+}
+
+.login-button {
+  padding: 0.75rem 1rem;
+  background-color: var(--foreground);
+  color: var(--background);
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-button:hover {
+  background-color: #ffffff;
+}
+
+.login-error {
+  color: #ff6b6b;
+  margin-top: 1rem;
+  text-align: center;
+}
+.mobile-toggle-btn {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #333;
+  color: var(--foreground);
+  border: none;
+  padding: 10px;
+  z-index: 1000;
+  border-radius: 4px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .mobile-toggle-btn {
+    display: block;
+  }
+}
+
+/* ---------------------
+
+--------------------- */

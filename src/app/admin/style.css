@@ -1,0 +1,157 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  position: relative;
+}
+
+.global-toggle-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 100;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: var(--foreground);
+  cursor: pointer;
+  display: none;
+}
+
+.sidebar {
+  width: 240px;
+  background: #111;
+  color: var(--foreground);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+  z-index: 10000;
+}
+
+.sidebar .sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+.sidebar .sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.sidebar .sidebar-nav ul li {
+  margin-bottom: 15px;
+}
+
+.sidebar .sidebar-nav ul li a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar .logout-section {
+  margin-top: 40px;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.sidebar .logout-section .logout-btn {
+  background-color: #333;
+  color: var(--foreground);
+  border: none;
+  padding: 10px 20px;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar .logout-section .logout-btn:hover {
+  background-color: #444;
+}
+
+.sidebar .toggle-btn {
+  background: none;
+  color: var(--foreground);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+aside.sidebar .mobile-only {
+  display: none;
+}
+
+.desktop-hidden {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  aside.sidebar .mobile-only {
+    display: block;
+  }
+
+  .desktop-hidden {
+    display: block;
+  }
+
+  .overlay {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.dashboard-content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.dashboard-content .title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.dashboard-content .text {
+  font-size: 16px;
+  line-height: 1.6;
+}

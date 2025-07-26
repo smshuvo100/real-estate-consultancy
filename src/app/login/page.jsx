@@ -1,13 +1,32 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+
+  // ✅ Redirect to dashboard if already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Optionally validate token via /api/protected
+      fetch("/api/protected", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            router.push("/admin/dashboard");
+          }
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,61 +44,35 @@ export default function LoginPage() {
       return;
     }
 
-    localStorage.setItem("token", data.token); // ✅ save token
-    router.push("/admin"); // ✅ redirect
+    localStorage.setItem("token", data.token);
+    router.push("/admin/dashboard");
   };
 
   return (
-    <div className="p-10 max-w-sm mx-auto">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h2 className="text-xl font-bold mb-4">Login</h2>
-      <form onSubmit={handleLogin} className="space-y-4">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          className="w-full p-2 border"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          className="w-full p-2 border"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="bg-black text-white px-4 py-2">
-          Login
-        </button>
-      </form>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    <div className="login-wrapper">
+      <div className="login-box">
+        <h2 className="login-title">Admin Login</h2>
+        <form onSubmit={handleLogin} className="login-form">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            className="login-input"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            className="login-input"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit" className="login-button">
+            Login
+          </button>
+        </form>
+        {error && <p className="login-error">{error}</p>}
+      </div>
     </div>
   );
 }
