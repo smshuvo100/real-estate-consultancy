@@ -1,8 +1,12 @@
-// ✅ /src/app/admin/blog/edit/[id]/page.jsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import "react-quill-new/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 export default function EditBlogPage() {
   const router = useRouter();
@@ -39,6 +43,31 @@ export default function EditBlogPage() {
     if (id) fetchBlog();
   }, [id]);
 
+  // ✅ Upload images
+  const uploadImage = async (e, isGallery = false) => {
+    const files = Array.from(e.target.files);
+
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        if (isGallery) {
+          setGallery((prev) => [...prev, data.url]);
+        } else {
+          setFeaturedImage(data.url);
+        }
+      }
+    }
+  };
+
   // ✅ Handle update
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -69,7 +98,7 @@ export default function EditBlogPage() {
   };
 
   return (
-    <div className="blog-form">
+    <div className="blog-form" style={{ padding: 20 }}>
       <h1>Edit Blog</h1>
       <form onSubmit={handleUpdate}>
         <input
@@ -95,34 +124,105 @@ export default function EditBlogPage() {
           className="input"
         />
 
-        {/* ✅ Featured Image */}
-        <input
-          type="text"
-          placeholder="Featured Image URL"
-          value={featuredImage}
-          onChange={(e) => setFeaturedImage(e.target.value)}
-          className="input"
-        />
+        {/* ✅ Upload Featured Image */}
+        <div className="ad-label-group" style={{ marginTop: 20 }}>
+          <label>Upload Featured Image:</label>
+          <input type="file" onChange={(e) => uploadImage(e, false)} />
+          {featuredImage && (
+            <div
+              style={{
+                position: "relative",
+                display: "inline-block",
+                marginTop: 10,
+              }}
+            >
+              <Image
+                src={featuredImage}
+                alt="Featured"
+                width={80}
+                height={80}
+              />
+              <button
+                type="button"
+                onClick={() => setFeaturedImage("")}
+                style={{
+                  position: "absolute",
+                  top: -8,
+                  right: -8,
+                  background: "#d33",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: 20,
+                  height: 20,
+                  fontSize: 12,
+                  cursor: "pointer",
+                }}
+              >
+                ×
+              </button>
+            </div>
+          )}
+        </div>
 
-        {/* ✅ Gallery */}
-        <input
-          type="text"
-          placeholder="Gallery (comma separated)"
-          value={gallery.join(",")}
-          onChange={(e) =>
-            setGallery(e.target.value.split(",").map((url) => url.trim()))
-          }
-          className="input"
-        />
+        {/* ✅ Upload Gallery Images */}
+        <div className="ad-label-group" style={{ marginTop: 20 }}>
+          <label>Upload Gallery Image(s):</label>
+          <input type="file" multiple onChange={(e) => uploadImage(e, true)} />
+          <div
+            style={{
+              display: "flex",
+              gap: 10,
+              flexWrap: "wrap",
+              marginTop: 10,
+            }}
+          >
+            {gallery.map((img, idx) => (
+              <div
+                key={idx}
+                style={{ position: "relative", display: "inline-block" }}
+              >
+                <Image
+                  src={img}
+                  alt={`Gallery ${idx}`}
+                  width={80}
+                  height={80}
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setGallery((prev) => prev.filter((_, i) => i !== idx))
+                  }
+                  style={{
+                    position: "absolute",
+                    top: 5,
+                    right: -5,
+                    background: "#d33",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: 20,
+                    height: 20,
+                    fontSize: 12,
+                    cursor: "pointer",
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
 
-        {/* ✅ Replace Editor with textarea */}
-        <textarea
-          placeholder="Full Blog Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="input"
-          rows={10}
-        />
+        {/* ✅ Rich Text Editor */}
+        <div style={{ margin: "20px 0" }}>
+          <ReactQuill
+            theme="snow"
+            value={content}
+            onChange={setContent}
+            placeholder="Full Blog Content"
+          />
+        </div>
 
         <button type="submit" className="btn">
           Update Blog

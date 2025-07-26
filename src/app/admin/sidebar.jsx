@@ -2,14 +2,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  FiMenu,
-  FiLogOut,
-  FiHome,
-  FiFileText,
-  FiFolder,
-  FiX,
-} from "react-icons/fi";
+import { FiLogOut, FiHome, FiFileText, FiFolder, FiX } from "react-icons/fi";
 import Image from "next/image";
 
 export default function Sidebar({ isOpen, toggle, close }) {
@@ -22,39 +15,47 @@ export default function Sidebar({ isOpen, toggle, close }) {
 
   return (
     <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+      {/* ✅ Logo + Mobile Close Button */}
       <div className="sidebar-header">
-        {/* Logo */}
         <Link href="/admin/dashboard" className="logo">
           <Image src="/images/logo.png" alt="logo" width={205} height={36} />
         </Link>
-        <button className="toggle-btn mobile-only" onClick={close}>
+        <button
+          className="toggle-btn mobile-only"
+          onClick={(e) => {
+            e.stopPropagation();
+            close();
+          }}
+        >
           <FiX />
         </button>
       </div>
 
+      {/* ✅ Navigation */}
       <nav className="sidebar-nav">
         <ul>
           <li>
             <Link href="/admin/dashboard">
-              <FiHome /> Dashboard
+              <FiHome /> <span>Dashboard</span>
             </Link>
           </li>
           <li>
             <Link href="/admin/blog">
-              <FiFileText /> Blog
+              <FiFileText /> <span>Blog</span>
             </Link>
           </li>
           <li>
             <Link href="/admin/project">
-              <FiFolder /> Project
+              <FiFolder /> <span>Project</span>
             </Link>
           </li>
         </ul>
       </nav>
 
+      {/* ✅ Logout */}
       <div className="logout-section">
         <button className="logout-btn" onClick={handleLogout}>
-          <FiLogOut /> Logout
+          <FiLogOut /> <span>Logout</span>
         </button>
       </div>
     </aside>

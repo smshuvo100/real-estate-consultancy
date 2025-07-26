@@ -1,3 +1,4 @@
+// src/app/api/blog/route.js
 import Blog from "@/models/Blog";
 import { connectToDB } from "@/lib/db";
 

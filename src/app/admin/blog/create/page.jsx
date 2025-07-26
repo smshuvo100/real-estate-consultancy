@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+import "react-quill-new/dist/quill.snow.css";
 
 export default function CreateBlogPage() {
   const router = useRouter();
@@ -20,19 +25,25 @@ export default function CreateBlogPage() {
   });
 
   const uploadImage = async (e, isGallery = false) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await res.json();
-    if (data.success) {
-      if (isGallery) {
-        setGallery((prev) => [...prev, data.url]);
-      } else {
-        setFeaturedImage(data.url);
+    const files = Array.from(e.target.files);
+
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        if (isGallery) {
+          setGallery((prev) => [...prev, data.url]);
+        } else {
+          setFeaturedImage(data.url);
+        }
       }
     }
   };
@@ -96,26 +107,38 @@ export default function CreateBlogPage() {
         />
 
         {/* 🖼️ Upload Featured Image */}
-        <label>Upload Featured Image:</label>
-        <input type="file" onChange={(e) => uploadImage(e, false)} />
-        {featuredImage && <img src={featuredImage} style={{ maxWidth: 200 }} />}
-
+        <div className="ad-label-group">
+          <label>Upload Featured Image:</label>
+          <input type="file" onChange={(e) => uploadImage(e, false)} />
+          {featuredImage && (
+            <Image src={featuredImage} width={80} height={80} alt="featured" />
+          )}
+        </div>
         {/* 🖼️ Upload Gallery Images */}
-        <label>Upload Gallery Image(s):</label>
-        <input type="file" onChange={(e) => uploadImage(e, true)} multiple />
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          {gallery.map((img, idx) => (
-            <img key={idx} src={img} style={{ width: 100 }} />
-          ))}
+        <div className="ad-label-group">
+          <label>Upload Gallery Image(s):</label>
+          <input type="file" onChange={(e) => uploadImage(e, true)} multiple />
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            {gallery.map((img, idx) => (
+              <Image key={idx} src={img} width={80} height={80} />
+            ))}
+          </div>
         </div>
 
         {/* ✅ Replaced Editor with Textarea */}
-        <textarea
+        {/* <textarea
           placeholder="Blog Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className="input"
           rows={10}
+        /> */}
+
+        <ReactQuill
+          theme="snow"
+          value={content}
+          onChange={setContent}
+          placeholder="Blog Content"
         />
 
         <button type="submit" className="btn">

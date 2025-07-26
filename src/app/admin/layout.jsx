@@ -1,13 +1,25 @@
+// ✅ src/app/admin/layout.jsx
 "use client";
-import { useEffect, useRef, useState } from "react";
 
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Sidebar from "./sidebar";
 import "./style.css";
 
 export default function AdminLayout({ children }) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const overlayRef = useRef();
+  const router = useRouter();
 
+  // ✅ Redirect if not authenticated
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    }
+  }, [router]);
+
+  // ✅ Responsive sidebar logic
   useEffect(() => {
     const handleResize = () => {
       setSidebarOpen(window.innerWidth >= 768);
@@ -22,20 +34,20 @@ export default function AdminLayout({ children }) {
 
   return (
     <div className="admin-layout">
-      <button
-        className="global-toggle-btn desktop-hidden"
-        onClick={toggleSidebar}
-      >
+      {/* ☰ Toggle Button (mobile only) */}
+      <button className="global-toggle-btn" onClick={toggleSidebar}>
         ☰
       </button>
+
+      {/* Overlay for mobile */}
       {isSidebarOpen && (
         <div ref={overlayRef} className="overlay" onClick={closeSidebar} />
       )}
-      <Sidebar
-        isOpen={isSidebarOpen}
-        toggle={toggleSidebar}
-        close={closeSidebar}
-      />
+
+      {/* Sidebar */}
+      <Sidebar isOpen={isSidebarOpen} close={closeSidebar} />
+
+      {/* Main Content */}
       <main className="main-content">{children}</main>
     </div>
   );

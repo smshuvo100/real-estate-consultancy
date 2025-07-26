@@ -89,6 +89,7 @@ a {
   font-size: 56px;
   line-height: 139.523%; /* 78.133px */
 }
+.blog-form button.btn,
 .nav-links a.btn-sm,
 .btn a,
 input[type="button"],
@@ -105,6 +106,7 @@ input[type="button"],
   color: var(--background);
   transition: all 0.3s ease-in-out;
 }
+.blog-form button.btn:hover,
 .nav-links a.btn-sm:hover,
 .btn a:hover,
 input[type="button"]:hover,
