@@ -1442,14 +1442,13 @@ section.property-neighborhood {
 .property-neighborhood .subtitle {
   margin-bottom: 20px;
 }
-/*
-.slick-gallery .slick-slide.slick-current img {
-  height: 350px !important;
-  object-fit: cover !important;
-}
-*/
-
 .slick-gallery .slick-slide img {
   height: 350px !important;
   object-fit: cover !important;
+}
+section.blog-details-sec {
+  padding-top: 100px;
+}
+.blog-details-sec .title-4 {
+  margin-bottom: 30px;
 }

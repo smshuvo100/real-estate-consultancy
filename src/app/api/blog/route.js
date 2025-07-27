@@ -1,25 +1,38 @@
-// ✅ /src/app/api/blog/route.js
 import Blog from "@/models/Blog";
-import Project from "@/models/Project"; // needed for PATCH
+import Project from "@/models/Project";
 import { connectToDB } from "@/lib/db";
 
 // 🔧 Slug generator
 function generateSlug(title = "") {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "") // remove special chars
-    .replace(/\s+/g, "-") // space to dash
-    .replace(/-+/g, "-") // collapse multiple dashes
-    .slice(0, 100); // max 100 chars
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .slice(0, 100);
 }
 
-// ✅ GET all blogs
-export async function GET() {
+// ✅ GET: All blogs or one blog by slug
+export async function GET(req) {
   try {
     await connectToDB();
+    const { searchParams } = new URL(req.url);
+    const slug = searchParams.get("slug");
+
+    if (slug) {
+      const blog = await Blog.findOne({ slug });
+      if (!blog) {
+        return new Response(JSON.stringify({ error: "Blog not found" }), {
+          status: 404,
+        });
+      }
+      return Response.json({ blog });
+    }
+
     const blogs = await Blog.find().sort({ createdAt: -1 });
     return Response.json(blogs);
   } catch (err) {
+    console.error("❌ GET /api/blog failed:", err);
     return new Response(JSON.stringify({ error: "Failed to fetch blogs" }), {
       status: 500,
     });
@@ -88,9 +101,7 @@ export async function DELETE(req) {
 
     return new Response(
       JSON.stringify({ message: "Blog deleted successfully" }),
-      {
-        status: 200,
-      }
+      { status: 200 }
     );
   } catch (err) {
     console.error("❌ DELETE /api/blog failed:", err);
