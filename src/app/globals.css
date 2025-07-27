@@ -1452,3 +1452,39 @@ section.blog-details-sec {
 .blog-details-sec .title-4 {
   margin-bottom: 30px;
 }
+
+/* ---------------------
+    Footer
+--------------------- */
+.floorplans {
+  padding-bottom: 100px;
+  padding-top: 30px;
+}
+
+.floorplans .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.floorplans .grid .title-5 {
+  margin-bottom: 10px;
+}
+
+.floorplans h2.title-4 {
+  margin-bottom: 50px;
+}
+
+/* ---------------------
+    Faq Small
+--------------------- */
+.faq-small .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  align-items: center;
+}
+section.faq-small {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}

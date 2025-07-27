@@ -19,6 +19,7 @@ import { GiFlowerPot, GiWashingMachine } from "react-icons/gi";
 import { LuRuler } from "react-icons/lu";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import FaqSmall from "@/app/components/FaqSmall";
 
 export default function SingleProjectPage() {
   const { slug } = useParams();
@@ -127,13 +128,13 @@ export default function SingleProjectPage() {
               <span>
                 <FaHome />
               </span>{" "}
-              {project.bedrooms || "N/A"} Bedroom
+              {project.bedrooms || "N/A"}
             </li>
             <li>
               <span>
                 <FaBath />
               </span>{" "}
-              {project.bathrooms || "N/A"} Bathroom
+              {project.bathrooms || "N/A"}
             </li>
             <li>
               <span>
@@ -243,6 +244,41 @@ export default function SingleProjectPage() {
           ))}
         </Slider>
       </div>
+
+      <section className="floorplans">
+        <div className="container">
+          <h2 className="title-4 center uppercase">floorplans</h2>
+          <div className="grid">
+            <div className="grid-item">
+              <h2 className="title-5">UNIT :</h2>
+              <p>{project.unit || "N/A"}</p>
+            </div>
+            <div className="grid-item">
+              <h2 className="title-5">SUITE :</h2>
+              <p>{project.suite || "N/A"}</p>
+            </div>
+            <div className="grid-item">
+              <h2 className="title-5">BALCONY :</h2>
+              <p>{project.balconySize || "N/A"}</p>
+            </div>
+            <div className="grid-item">
+              <h2 className="title-5">TOTAL :</h2>
+              <p>{project.total || "N/A"}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="full-image">
+        <Image
+          src={project.image || "/images/full-image.webp"}
+          alt="floorplan"
+          width={1920}
+          height={1080}
+        />
+      </section>
+
+      <FaqSmall />
     </>
   );
 }

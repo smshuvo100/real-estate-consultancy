@@ -3,6 +3,8 @@ import React from "react";
 import { Hero } from "../components/Hero";
 import { PropertyGrid } from "../components/PropertyGrid";
 
+import FaqSmall from "../components/FaqSmall";
+
 export default function page() {
   // Hero Data
   const heroData = {
@@ -23,6 +25,8 @@ export default function page() {
 
       {/* property grid */}
       <PropertyGrid />
+      {/* FAQ */}
+      <FaqSmall />
     </>
   );
 }
