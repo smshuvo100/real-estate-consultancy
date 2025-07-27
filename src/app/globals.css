@@ -18,6 +18,7 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 p {
   font-family: var(--font-manrope), sans-serif;

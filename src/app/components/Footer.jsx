@@ -1,12 +1,27 @@
+"use client";
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
 export default function Footer() {
   return (
     <>
       <footer className="footer">
-        <div className="container foo">
+        <motion.div
+          className="container foo"
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
           <div className="flex-box">
-            <div className="box1">
+            <motion.div
+              className="box1"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              viewport={{ once: true }}
+            >
               <Image
                 src="/images/logo.png"
                 alt="logo"
@@ -16,11 +31,17 @@ export default function Footer() {
               <p>
                 Dream Home is a gated community with a great location. Located
                 downtown, you&apos;re within walking distance of Parks, and
-                the...
-                <a href="#">View More</a>
+                the... <a href="#">View More</a>
               </p>
-            </div>
-            <div className="box2">
+            </motion.div>
+
+            <motion.div
+              className="box2"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <h2 className="title-5">Contact Us</h2>
               <p>Media City - Sharjah - UAE</p>
 
@@ -43,7 +64,7 @@ export default function Footer() {
                   />
                   <span>info@sfk.ae</span>
                 </a>
-                <a href="www.sfk.ae" className="text-icon">
+                <a href="https://www.sfk.ae" className="text-icon">
                   <Image
                     src="/icons/web.svg"
                     alt="web"
@@ -53,8 +74,15 @@ export default function Footer() {
                   <span>www.sfk.ae</span>
                 </a>
               </div>
-            </div>
-            <div className="box3">
+            </motion.div>
+
+            <motion.div
+              className="box3"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
               <h2 className="title-5">Follow Us</h2>
               <div className="social">
                 <a href="#">
@@ -82,15 +110,21 @@ export default function Footer() {
                   />
                 </a>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="copyright">
+        <motion.div
+          className="copyright"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          viewport={{ once: true }}
+        >
           <div className="container">
             <p>© 2025 SFK Real Estate Consultancy. All Rights Reserved.</p>
           </div>
-        </div>
+        </motion.div>
       </footer>
     </>
   );

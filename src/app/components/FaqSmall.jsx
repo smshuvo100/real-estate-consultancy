@@ -1,12 +1,13 @@
 // ✅ src/app/components/FaqSmall.jsx
 "use client";
+
 import { useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function FaqSmall() {
   const [openIndex, setOpenIndex] = useState(null);
 
-  // ✅ FAQ data directly in this file
   const faqItems = [
     {
       question: "What is the first step in buying a home?",
@@ -42,9 +43,17 @@ export default function FaqSmall() {
         <div className="grid">
           <div className="grid-item">
             {faqItems.map((item, index) => (
-              <div
+              <motion.div
                 key={index}
                 className={`faq-item ${openIndex === index ? "open" : ""}`}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1.2,
+                  ease: "easeOut",
+                  delay: index * 0.1,
+                }}
+                viewport={{ once: true }}
               >
                 <button
                   className="faq-question title-5"
@@ -55,23 +64,33 @@ export default function FaqSmall() {
                     {openIndex === index ? <FiChevronUp /> : <FiChevronDown />}
                   </span>
                 </button>
-                <div
-                  className="faq-answer"
-                  style={{
-                    maxHeight: openIndex === index ? "200px" : "0",
-                    padding: openIndex === index ? "8px 0" : "0",
-                    overflow: "hidden",
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <p>{item.answer}</p>
-                </div>
-              </div>
+
+                <AnimatePresence initial={false}>
+                  {openIndex === index && (
+                    <motion.div
+                      className="faq-answer"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                    >
+                      <p>{item.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             ))}
           </div>
-          <div className="grid-item">
+
+          <motion.div
+            className="grid-item"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <h2 className="title-1">FAQ</h2>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

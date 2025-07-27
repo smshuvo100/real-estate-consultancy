@@ -1,49 +1,6 @@
-/**
- * // About Data
-
-const aboutData = {
-  heading: "About Us",
-  description:
-    "SFK Real Estate Consultancy stands as a distinguished leader...",
-  readMoreLink: "#",
-  stats: [
-    { value: "200+", label: "Happy Customers" },
-    { value: "10k+", label: "Properties For Clients" },
-    { value: "16+", label: "Years of Experience" },
-  ],
-  tabs: [
-    {
-      label: "Company Profile",
-      content: [
-        "SFK Real Estate Consultancy stands as a distinguished leader...",
-        "Our comprehensive approach encompasses the entire development lifecycle...",
-      ],
-      stats: [
-        { value: "200+", label: "Happy Customers" },
-        { value: "10k+", label: "Properties For Clients" },
-        { value: "16+", label: "Years of Experience" },
-      ],
-    },
-    {
-      label: "Vision",
-      content: ["To be at the forefront of the real estate industry..."],
-    },
-    {
-      label: "Mission",
-      content: [
-        "To consistently deliver innovative, sustainable, and high-quality real estate solutions...",
-      ],
-    },
-  ],
-  images: [
-    { src: "/images/about-1.webp", alt: "about", width: 570, height: 944 },
-    { src: "/images/about-2.webp", alt: "about", width: 706, height: 1014 },
-  ],
-};
- */
-
 "use client";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 export function About({ data }) {
@@ -65,12 +22,35 @@ export function About({ data }) {
     }, 300);
   };
 
+  const variants = {
+    enter: (direction) => ({
+      x: direction === "right" ? 100 : -100,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.5 },
+    },
+    exit: (direction) => ({
+      x: direction === "right" ? -100 : 100,
+      opacity: 0,
+      transition: { duration: 0.3 },
+    }),
+  };
+
   return (
     <section className="about container-full-width">
       <div className="top-position">
         <div className="container">
           <div className="flex-box">
-            <div className="text-box">
+            <motion.div
+              className="text-box"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
               <div className="about-text">
                 {heading && <h2 className="title-4">{heading}</h2>}
                 {description && <p>{description}</p>}
@@ -78,10 +58,17 @@ export function About({ data }) {
                 {stats?.length > 0 && (
                   <div className="grid">
                     {stats.map((stat, i) => (
-                      <div className="box" key={i}>
+                      <motion.div
+                        className="box"
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: i * 0.1 }}
+                        viewport={{ once: true }}
+                      >
                         <h2 className="title-5">{stat.value}</h2>
                         <p>{stat.label}</p>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 )}
@@ -109,39 +96,50 @@ export function About({ data }) {
                     </div>
 
                     <div className="tab-content sm1">
-                      <div
-                        key={activeTab}
-                        className={`tab-content-inner ${
-                          transitioning
-                            ? "exit-" + direction
-                            : "enter-" + direction
-                        }`}
-                      >
-                        {tabs[activeTab]?.content && (
-                          <div className="tab-text">
-                            {tabs[activeTab].content.map((para, idx) => (
-                              <p key={idx}>{para}</p>
-                            ))}
-                            {tabs[activeTab].stats?.length > 0 && (
-                              <div className="grid">
-                                {tabs[activeTab].stats.map((stat, i) => (
-                                  <div className="box" key={i}>
-                                    <h2 className="title-5">{stat.value}</h2>
-                                    <p>{stat.label}</p>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
+                      <AnimatePresence mode="wait" custom={direction}>
+                        <motion.div
+                          key={activeTab}
+                          className="tab-content-inner"
+                          variants={variants}
+                          custom={direction}
+                          initial="enter"
+                          animate="center"
+                          exit="exit"
+                        >
+                          {tabs[activeTab]?.content && (
+                            <div className="tab-text">
+                              {tabs[activeTab].content.map((para, idx) => (
+                                <p key={idx}>{para}</p>
+                              ))}
+                              {tabs[activeTab].stats?.length > 0 && (
+                                <div className="grid">
+                                  {tabs[activeTab].stats.map((stat, i) => (
+                                    <div className="box" key={i}>
+                                      <h2 className="title-5">{stat.value}</h2>
+                                      <p>{stat.label}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </motion.div>
+                      </AnimatePresence>
                     </div>
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
 
-            {images?.length > 0 && <div className="img-box"></div>}
+            {images?.length > 0 && (
+              <motion.div
+                className="img-box"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -151,20 +149,33 @@ export function About({ data }) {
           <div className="container">
             <div className="flex-box">
               <div className="text-box"></div>
-              <div className="img-box sm">
+              <motion.div
+                className="img-box sm"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
                 <div className="img-position">
                   {images.map((img, i) => (
-                    <div key={i} className={`img${i + 1}`}>
+                    <motion.div
+                      key={i}
+                      className={`img${i + 1}`}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: i * 0.1 }}
+                      viewport={{ once: true }}
+                    >
                       <Image
                         src={img.src}
                         alt={img.alt}
                         width={img.width}
                         height={img.height}
                       />
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

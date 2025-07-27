@@ -61,13 +61,10 @@ export default function Home() {
       {/* Recent-Projects section */}
       <RecentProjects />
 
-      {/* our services  */}
+      {/* our services ==== */}
       <OurServices />
 
-      {/* gallery section */}
-      {/* <Gallery /> */}
-
-      {/* full image section  */}
+      {/* full image section == */}
       <Fullimage />
 
       {/* about section */}

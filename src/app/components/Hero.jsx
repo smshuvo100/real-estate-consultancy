@@ -1,4 +1,8 @@
+// ✅ src/app/components/Hero.jsx
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 
 export function Hero({ data }) {
   if (!data) return null;
@@ -27,10 +31,15 @@ export function Hero({ data }) {
 
       <div className="container">
         {(title || subtitle) && (
-          <div className="center">
+          <motion.div
+            className="center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             {title && <h2 className="title-2">{title}</h2>}
             {subtitle && <h2 className="title-1">{subtitle}</h2>}
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -43,10 +52,20 @@ export function Hero({ data }) {
             {features?.length > 0 && (
               <div className="grid">
                 {features.map((item, index) => (
-                  <div className="box" key={index}>
+                  <motion.div
+                    className="box"
+                    key={index}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.1,
+                      ease: "easeOut",
+                    }}
+                  >
                     {item.title && <h2 className="title-5">{item.title}</h2>}
                     {item.text && <p>{item.text}</p>}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             )}
@@ -54,14 +73,24 @@ export function Hero({ data }) {
             {(description?.title || description?.text) && (
               <div className="grid2">
                 {description?.title && (
-                  <div className="box">
+                  <motion.div
+                    className="box"
+                    initial={{ opacity: 0, x: -60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  >
                     <h2 className="title-3">{description.title}</h2>
-                  </div>
+                  </motion.div>
                 )}
                 {description?.text && (
-                  <div className="box">
+                  <motion.div
+                    className="box"
+                    initial={{ opacity: 0, x: 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  >
                     <p>{description.text}</p>
-                  </div>
+                  </motion.div>
                 )}
               </div>
             )}

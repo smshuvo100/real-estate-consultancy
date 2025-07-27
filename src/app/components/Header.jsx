@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FiMenu, FiX } from "react-icons/fi";
 import Image from "next/image";
+import { FiMenu, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,7 +19,12 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`main-header ${scrolled ? "scrolled" : ""}`}>
+    <motion.header
+      className={`main-header ${scrolled ? "scrolled" : ""}`}
+      initial={{ opacity: 0, y: -60 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+    >
       <div className="container">
         <div className="header-inner">
           <Link href="/" className="logo">
@@ -43,40 +49,59 @@ export default function Header() {
       </div>
 
       {/* Overlay */}
-      {menuOpen && (
-        <div className="overlay" onClick={() => setMenuOpen(false)}></div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="overlay"
+            onClick={() => setMenuOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
-        <button className="close-btn" onClick={() => setMenuOpen(false)}>
-          <FiX />
-        </button>
-        <nav>
-          <Link href="/" onClick={() => setMenuOpen(false)}>
-            Home
-          </Link>
-          <Link href="/projects" onClick={() => setMenuOpen(false)}>
-            Projects
-          </Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)}>
-            About
-          </Link>
-          <Link href="/blog" onClick={() => setMenuOpen(false)}>
-            Blog
-          </Link>
-          <Link href="/faq" onClick={() => setMenuOpen(false)}>
-            FAQ
-          </Link>
-          <Link
-            href="/contact"
-            className="btn"
-            onClick={() => setMenuOpen(false)}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="mobile-menu open"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            Enquire Now
-          </Link>
-        </nav>
-      </div>
-    </header>
+            <button className="close-btn" onClick={() => setMenuOpen(false)}>
+              <FiX />
+            </button>
+            <nav>
+              <Link href="/" onClick={() => setMenuOpen(false)}>
+                Home
+              </Link>
+              <Link href="/projects" onClick={() => setMenuOpen(false)}>
+                Projects
+              </Link>
+              <Link href="/about" onClick={() => setMenuOpen(false)}>
+                About
+              </Link>
+              <Link href="/blog" onClick={() => setMenuOpen(false)}>
+                Blog
+              </Link>
+              <Link href="/faq" onClick={() => setMenuOpen(false)}>
+                FAQ
+              </Link>
+              <Link
+                href="/contact"
+                className="btn"
+                onClick={() => setMenuOpen(false)}
+              >
+                Enquire Now
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

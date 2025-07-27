@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
+import { motion } from "framer-motion";
 
 export function LatestBlogs() {
   const [blogs, setBlogs] = useState([]);
@@ -49,12 +50,35 @@ export function LatestBlogs() {
   }
 
   return (
-    <section className="latest-blogs" ref={blogsRef}>
+    <motion.section
+      className="latest-blogs"
+      ref={blogsRef}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+    >
       <div className="container">
-        <h2 className="title-4 center">Latest Blogs</h2>
+        <motion.h2
+          className="title-4 center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          Latest Blogs
+        </motion.h2>
+
         <div className="blog-grid">
-          {currentBlogs.map((blog) => (
-            <div key={blog._id} className="blog-card">
+          {currentBlogs.map((blog, index) => (
+            <motion.div
+              key={blog._id}
+              className="blog-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
               <Link href={`/blog/${blog.slug}`}>
                 <div className="blog-image">
                   <Image
@@ -80,11 +104,10 @@ export function LatestBlogs() {
                 <h3 className="title-5">{blog.title}</h3>
                 <p className="blog-desc">{blog.shortDesc?.slice(0, 150)}...</p>
               </Link>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Pagination */}
         <div
           className="pagination"
           style={{
@@ -117,6 +140,6 @@ export function LatestBlogs() {
           />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

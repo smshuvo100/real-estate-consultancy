@@ -1,9 +1,9 @@
-// ✅ src/app/components/PropertyGrid.jsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Slider from "react-slick";
+import Link from "next/link";
 import ReactPaginate from "react-paginate";
 import {
   FaArrowLeft,
@@ -16,10 +16,11 @@ import {
   FaBuilding,
 } from "react-icons/fa";
 import { LuRuler } from "react-icons/lu";
+import { motion } from "framer-motion";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Link from "next/link";
+
 const ranges = {
   "$100k - $150k": [100000, 150000],
   "$150k - $200k": [150001, 200000],
@@ -149,12 +150,31 @@ export function PropertyGrid() {
       <section className="property-grid-section">
         {sidebarOpen && <div className="filter-overlay"></div>}
         <div className="container">
-          <h2 className="title-4 center">Discover Properties</h2>
+          <motion.h2
+            className="title-4 center"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            Discover Properties
+          </motion.h2>
 
           {/* 📦 Property Cards */}
           <div className="property-grid">
             {filtered.map((property, index) => (
-              <div className="property-card" key={property._id || index}>
+              <motion.div
+                className="property-card"
+                key={property._id || index}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1.2,
+                  ease: "easeOut",
+                  delay: index * 0.1,
+                }}
+                viewport={{ once: true }}
+              >
                 <div className="image-wrapper">
                   <Slider {...sliderSettings}>
                     {(property.gallery?.length
@@ -175,7 +195,6 @@ export function PropertyGrid() {
                 </div>
                 <div className="property-info">
                   <h4>{parseInt(property.price || 0).toLocaleString()} $</h4>
-                  {/* <button className="details-btn">View Details</button> */}
                   <Link
                     className="details-btn"
                     href={`/projects/${property.slug}`}
@@ -215,18 +234,22 @@ export function PropertyGrid() {
                     {property.propertyType || "N/A"}
                   </li>
                 </ul>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Pagination */}
-          <div
+          <motion.div
             className="pagination"
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
           >
             {loadingPage && <div className="page-loader">Loading...</div>}
             <ReactPaginate
@@ -245,7 +268,7 @@ export function PropertyGrid() {
               breakLinkClassName="page-link"
               disabledClassName="disabled"
             />
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

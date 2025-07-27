@@ -20,6 +20,7 @@ import { LuRuler } from "react-icons/lu";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import FaqSmall from "@/app/components/FaqSmall";
+import { motion } from "framer-motion";
 
 export default function SingleProjectPage() {
   const { slug } = useParams();
@@ -61,9 +62,15 @@ export default function SingleProjectPage() {
           style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
         ></div>
         <div className="container">
-          <div className="center">
+          <motion.div
+            className="center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <h2 className="title-1">{project.propertyArea}</h2>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -71,13 +78,19 @@ export default function SingleProjectPage() {
         <div className="top-position">
           <div className="container">
             <div className="flex-box">
-              <div className="text-box">
+              <motion.div
+                className="text-box"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+              >
                 <h2 className="title-4">{project.title}</h2>
                 <div
                   className="project-description"
                   dangerouslySetInnerHTML={{ __html: project.description }}
                 ></div>
-              </div>
+              </motion.div>
               <div className="img-box"></div>
             </div>
           </div>
@@ -87,7 +100,13 @@ export default function SingleProjectPage() {
           <div className="container">
             <div className="flex-box">
               <div className="text-box"></div>
-              <div className="img-box sm">
+              <motion.div
+                className="img-box sm"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+              >
                 <div className="img-position">
                   <div className="img1">
                     <Image
@@ -106,7 +125,7 @@ export default function SingleProjectPage() {
                     />
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

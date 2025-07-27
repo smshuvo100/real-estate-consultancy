@@ -6,6 +6,7 @@ import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { motion } from "framer-motion";
 
 export default function BlogDetailsPage() {
   const { slug } = useParams();
@@ -56,7 +57,8 @@ export default function BlogDetailsPage() {
 
   return (
     <>
-      <section
+      {/* Hero Section with animation */}
+      <motion.section
         className="hero single-hero"
         style={{
           backgroundImage: `url("${
@@ -65,34 +67,61 @@ export default function BlogDetailsPage() {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
       >
         <div
           className="overlay"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
         ></div>
         <div className="container">
-          <div className="center">
+          <motion.div
+            className="center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <h2 className="title-1">{blog.category || "Category"}</h2>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="blog-details-sec">
+      {/* Blog content with animation */}
+      <motion.section
+        className="blog-details-sec"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+      >
         <div className="container">
-          <h2 className="title-4">{blog.title}</h2>
-          {/* <ul className="blog-meta" style={{ marginBottom: "20px" }}>
-            <li>{blog.views || 0} Views</li>
-            <li>{blog.category}</li>
-            <li>{blog.adminName}</li>
-          </ul> */}
+          <motion.h2
+            className="title-4"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            {blog.title}
+          </motion.h2>
           <div
             className="project-description"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
         </div>
-      </section>
+      </motion.section>
 
-      <div className="slick-gallery">
+      {/* Gallery with animation */}
+      <motion.div
+        className="slick-gallery"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
         <Slider {...sliderSettings}>
           {sliderImages.map((src, idx) => (
             <div key={idx} className="slide">
@@ -106,7 +135,7 @@ export default function BlogDetailsPage() {
             </div>
           ))}
         </Slider>
-      </div>
+      </motion.div>
     </>
   );
 }
