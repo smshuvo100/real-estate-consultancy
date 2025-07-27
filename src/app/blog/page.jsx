@@ -1,3 +1,4 @@
+// ✅ src/app/blog/page.jsx
 import React from "react";
 import { Hero } from "../components/Hero";
 import { LatestBlogs } from "../components/LatestBlogs";

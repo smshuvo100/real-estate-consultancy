@@ -1,3 +1,4 @@
+// ✅ src/app/projects/page.jsx
 import React from "react";
 import { Hero } from "../components/Hero";
 import { PropertyGrid } from "../components/PropertyGrid";

@@ -169,7 +169,8 @@ export default function CreateProjectPage() {
           onChange={handleInputChange}
           className="input"
         />
-        <textarea
+        <input
+          type="text"
           name="mapIframe"
           placeholder="Map iframe"
           value={form.mapIframe}

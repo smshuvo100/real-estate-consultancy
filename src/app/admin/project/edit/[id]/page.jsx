@@ -1,4 +1,3 @@
-// ✅ src/app/admin/project/edit/[id]/page.jsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -13,52 +12,28 @@ export default function EditProjectPage() {
   const router = useRouter();
   const { id } = useParams();
 
-  const [form, setForm] = useState({
-    title: "",
-    slug: "",
-    description: "",
-    featuredImages: [],
-    sidebarImages: [],
-    price: "",
-    bedrooms: "",
-    bathrooms: "",
-    sqft: "",
-    propertyArea: "",
-    propertyType: "",
-    elevator: false,
-    laundryFacility: false,
-    walkInCloset: false,
-    firePlace: false,
-    balcony: false,
-    garage: false,
-    address: "",
-    mapIframe: "",
-    gallery: [],
-    unit: "",
-    suite: "",
-    balconySize: "",
-    total: "",
-    image: "",
-  });
+  const [form, setForm] = useState(null);
 
   useEffect(() => {
-    fetch("/api/project")
-      .then((res) => res.json())
-      .then((data) => {
-        const project = data.find((p) => p._id === id);
-        if (project) {
-          setForm((prev) => ({
-            ...prev,
-            ...project,
-            elevator: !!project.elevator,
-            laundryFacility: !!project.laundryFacility,
-            walkInCloset: !!project.walkInCloset,
-            firePlace: !!project.firePlace,
-            balcony: !!project.balcony,
-            garage: !!project.garage,
-          }));
-        } else alert("Project not found");
-      });
+    const fetchData = async () => {
+      const res = await fetch("/api/project");
+      const data = await res.json();
+      const project = data.projects.find((p) => p._id === id);
+      if (project) {
+        setForm({
+          ...project,
+          elevator: !!project.elevator,
+          laundryFacility: !!project.laundryFacility,
+          walkInCloset: !!project.walkInCloset,
+          firePlace: !!project.firePlace,
+          balcony: !!project.balcony,
+          garage: !!project.garage,
+        });
+      } else {
+        alert("Project not found");
+      }
+    };
+    fetchData();
   }, [id]);
 
   const handleInputChange = (e) => {
@@ -79,6 +54,7 @@ export default function EditProjectPage() {
   const handleImageUpload = async (e, key, single = false) => {
     const files = Array.from(e.target.files);
     const uploaded = [];
+
     for (const file of files) {
       const fd = new FormData();
       fd.append("file", file);
@@ -86,6 +62,7 @@ export default function EditProjectPage() {
       const data = await res.json();
       if (data.success) uploaded.push(data.url);
     }
+
     if (single) {
       setForm((prev) => ({ ...prev, [key]: uploaded[0] || "" }));
     } else {
@@ -104,7 +81,7 @@ export default function EditProjectPage() {
     else alert("Project update failed");
   };
 
-  if (!form || Object.keys(form).length === 0) return <p>Loading...</p>;
+  if (!form) return <p style={{ padding: 40 }}>Loading...</p>;
 
   return (
     <div className="blog-form">
@@ -175,15 +152,15 @@ export default function EditProjectPage() {
           "firePlace",
           "balcony",
           "garage",
-        ].map((feature) => (
-          <div className="ad-label-group sm" key={feature}>
+        ].map((key) => (
+          <div className="ad-label-group sm" key={key}>
             <input
               type="checkbox"
-              name={feature}
-              checked={form[feature]}
+              name={key}
+              checked={form[key]}
               onChange={handleInputChange}
             />
-            <label>{feature.replace(/([A-Z])/g, " $1")}</label>
+            <label>{key.replace(/([A-Z])/g, " $1")}</label>
           </div>
         ))}
 
@@ -193,7 +170,7 @@ export default function EditProjectPage() {
           onChange={handleInputChange}
           className="input"
         />
-        <textarea
+        <input
           name="mapIframe"
           value={form.mapIframe}
           onChange={handleInputChange}

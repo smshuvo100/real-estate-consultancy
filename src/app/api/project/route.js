@@ -1,4 +1,4 @@
-// src/app/api/project/route.js
+// ✅ /src/app/api/project/route.js
 import { connectToDB } from "@/lib/db";
 import Project from "@/models/Project";
 
@@ -9,12 +9,35 @@ const generateSlug = (title) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-// ✅ GET all projects
-export async function GET() {
+// ✅ GET: Fetch All or Single Project by slug
+export async function GET(req) {
   try {
     await connectToDB();
-    const projects = await Project.find().sort({ createdAt: -1 });
-    return Response.json(projects);
+
+    const { searchParams } = new URL(req.url);
+    const slug = searchParams.get("slug");
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "1000");
+    const skip = (page - 1) * limit;
+
+    if (slug) {
+      const project = await Project.findOne({ slug });
+      if (!project) {
+        return new Response(JSON.stringify({ error: "Project not found" }), {
+          status: 404,
+        });
+      }
+      return Response.json({ project });
+    }
+
+    const projects = await Project.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Project.countDocuments();
+
+    return Response.json({ projects, total });
   } catch (err) {
     return new Response(JSON.stringify({ error: "Failed to fetch projects" }), {
       status: 500,

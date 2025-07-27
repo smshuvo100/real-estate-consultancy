@@ -1,3 +1,4 @@
+// src/app/admin/blog/edit/[id]/page.jsx
 "use client";
 
 import { useEffect, useState } from "react";

@@ -11,7 +11,7 @@ export default function ProjectAdminPage() {
   useEffect(() => {
     fetch("/api/project")
       .then((res) => res.json())
-      .then(setProjects);
+      .then((data) => setProjects(data.projects));
   }, []);
 
   const deleteProject = async (id) => {

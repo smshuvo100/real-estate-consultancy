@@ -144,6 +144,10 @@ img {
 /* ---------------------
   Hero Section
 --------------------- */
+section.hero.single-hero .center {
+  padding-top: 250px;
+  padding-bottom: 100px;
+}
 
 section.hero {
   position: relative;
@@ -1219,6 +1223,9 @@ section.recent-projects-sec h2.title-4.uppercase.center {
 }
 
 .property-grid-section .image-wrapper img {
+  height: 450px !important;
+  width: 100%;
+  object-fit: cover;
   display: flex !important;
 }
 .property-grid-section .filter-overlay {
@@ -1321,83 +1328,128 @@ Login
 }
 
 /* ---------------------
-
+Pagination
 --------------------- */
-/* 
+.pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.page-item {
+  list-style: none;
+}
+.page-link {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.page-item.active .page-link {
+  background-color: #1b1b1b;
+  color: #fff;
+  border-color: #1b1b1b;
+}
+.page-item.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* Add this to your global CSS or component-level CSS module */
 
-1 Title
-2 Description
-3 Features images
-4 Sidebar 2 images
-5 Price
-6 Bedrooms (ex 2)
-7 Bathrooms
-8 Sq ft
-9 property area
-10 Property type
-<h2>Features </h2>
--------------------
-11 Elevator
-12 Laundry Facility
-13 Walk in Closet
-14 Fire place
-15 Balcony
-16 Garage  
-<h2>Navigation</h2>
----------------------
-17 Address
-18 Map ( google map iFrame )
-19 Gallery
-<h2>Floorplans</h2>
----------------------
-20 Unit ( ex 1 BEDROOM + 1 SUITE + 1 BALCONY)
-21 Suite ( ex 479.10 SQ.FT.)
-22 Balcony ( ex 89.23 - 89.45 SQ.FT.)
-23 TOTAL : ( ex 568.33 - 568.55 SQ.FT.)
-24 Floorplan image
+.page-loader {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+  position: relative;
+  padding: 20px;
+}
 
+.page-loader::after {
+  content: "";
+  display: inline-block;
+  margin-left: 10px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #999;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* ---------------------
+  Single project page 
+--------------------- */
+.property-details-price ul.property-meta {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  font-size: 24px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.property-details-price ul.property-meta li {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
 
-const ProjectSchema = new mongoose.Schema(
-  {
-    // 🟩 Basic Info
-    title: { type: String, required: true },        // 1: Title
-    description: { type: String, required: true },  // 2: Description
+/* ---------------------
+  Property features
+--------------------- */
+.property-features ul.property-features-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 30px;
+}
 
-    // 🖼️ Images
-    featuredImages: [String],   // 3: Featured Images
-    sidebarImages: [String],    // 4: Sidebar 2 Images
+.property-features ul.property-features-list li {
+  border: 1px solid #fff;
+  border-radius: 8px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
 
-    // 💰 Property Details
-    price: String,         // 5: Price
-    bedrooms: String,      // 6: Bedrooms
-    bathrooms: String,     // 7: Bathrooms
-    sqft: String,          // 8: Sq Ft
-    propertyArea: String,  // 9: Property Area
-    propertyType: String,  // 10: Property Type
+.property-features ul.property-features-list li .icon {
+  font-size: 40px;
+}
 
-    // 🟨 Features Section (11–16)
-  elevator: Boolean,          // 11: Elevator
-    laundryFacility: Boolean,  // 12: Laundry Facility
-    walkInCloset: Boolean,     // 13: Walk in Closet
-    firePlace: Boolean,        // 14: Fire place
-    balcony: Boolean,          // 15: Balcony
-    garage: Boolean,           // 16: Garage
+.property-features .title-4 {
+  margin-bottom: 50px;
+}
 
-
-    // 🟦 Navigation Section (17–18)
-    address: String,       // 17: Address
-    mapIframe: String,     // 18: Google Map iFrame
-
-    // 🟪 Gallery Section (19)
-    gallery: [String],     // 19: Gallery
-
-    // 🟥 Floorplans Section (20–24)
-    unit: String,      // 20: Unit (e.g. 1 BEDROOM + 1 SUITE + 1 BALCONY)
-    suite: String,     // 21: Suite (e.g. 479.10 SQ.FT.)
-    balcony: String,   // 22: Balcony (e.g. 89.23 - 89.45 SQ.FT.)
-    total: String,     // 23: Total (e.g. 568.33 - 568.55 SQ.FT.)
-    image: String,     // 24: Floorplan image
-  { timestamps: true }
-);
+section.property-features {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+section.property-neighborhood {
+  padding-bottom: 100px;
+}
+.property-neighborhood .subtitle {
+  margin-bottom: 20px;
+}
+/*
+.slick-gallery .slick-slide.slick-current img {
+  height: 350px !important;
+  object-fit: cover !important;
+}
 */
+
+.slick-gallery .slick-slide img {
+  height: 350px !important;
+  object-fit: cover !important;
+}
