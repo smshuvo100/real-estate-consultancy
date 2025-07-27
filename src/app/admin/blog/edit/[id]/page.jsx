@@ -13,13 +13,13 @@ export default function EditBlogPage() {
   const { id } = useParams();
 
   const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
   const [category, setCategory] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [content, setContent] = useState("");
   const [featuredImage, setFeaturedImage] = useState("");
   const [gallery, setGallery] = useState([]);
 
-  // ✅ Fetch blog by ID
   useEffect(() => {
     const fetchBlog = async () => {
       try {
@@ -30,6 +30,7 @@ export default function EditBlogPage() {
         if (!blog) return alert("Blog not found");
 
         setTitle(blog.title || "");
+        setSlug(blog.slug || "");
         setCategory(blog.category || "");
         setShortDesc(blog.shortDesc || "");
         setContent(blog.content || "");
@@ -43,7 +44,6 @@ export default function EditBlogPage() {
     if (id) fetchBlog();
   }, [id]);
 
-  // ✅ Upload images
   const uploadImage = async (e, isGallery = false) => {
     const files = Array.from(e.target.files);
 
@@ -68,7 +68,6 @@ export default function EditBlogPage() {
     }
   };
 
-  // ✅ Handle update
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -80,6 +79,7 @@ export default function EditBlogPage() {
       body: JSON.stringify({
         id,
         title,
+        slug: slug?.trim(), // ✅ include slug in update
         category,
         shortDesc,
         content,
@@ -106,6 +106,14 @@ export default function EditBlogPage() {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          className="input"
+        />
+
+        <input
+          type="text"
+          placeholder="Slug (optional)"
+          value={slug}
+          onChange={(e) => setSlug(e.target.value)}
           className="input"
         />
 

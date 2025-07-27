@@ -1,3 +1,4 @@
+// ✅ src/app/admin/blog/create/page.jsx
 "use client";
 
 import { useState } from "react";
@@ -12,6 +13,7 @@ export default function CreateBlogPage() {
   const router = useRouter();
 
   const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState(""); // ✅ new slug input
   const [category, setCategory] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [content, setContent] = useState("");
@@ -55,6 +57,7 @@ export default function CreateBlogPage() {
       date: today,
       adminName: "Admin",
       title,
+      slug: slug?.trim(), // ✅ added
       category,
       shortDesc,
       content,
@@ -93,6 +96,14 @@ export default function CreateBlogPage() {
 
         <input
           type="text"
+          placeholder="Slug (optional)"
+          value={slug}
+          onChange={(e) => setSlug(e.target.value)}
+          className="input"
+        />
+
+        <input
+          type="text"
           placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -114,26 +125,19 @@ export default function CreateBlogPage() {
             <Image src={featuredImage} width={80} height={80} alt="featured" />
           )}
         </div>
+
         {/* 🖼️ Upload Gallery Images */}
         <div className="ad-label-group">
           <label>Upload Gallery Image(s):</label>
           <input type="file" onChange={(e) => uploadImage(e, true)} multiple />
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             {gallery.map((img, idx) => (
-              <Image key={idx} src={img} width={80} height={80} />
+              <Image key={idx} src={img} width={80} height={80} alt="" />
             ))}
           </div>
         </div>
 
-        {/* ✅ Replaced Editor with Textarea */}
-        {/* <textarea
-          placeholder="Blog Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="input"
-          rows={10}
-        /> */}
-
+        {/* 📝 Rich Text Editor */}
         <ReactQuill
           theme="snow"
           value={content}

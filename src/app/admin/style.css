@@ -322,11 +322,17 @@ aside.sidebar .mobile-only {
 }
 .admin-layout .blog-form .ql-editor,
 .admin-layout .blog-form textarea.input,
-.admin-layout .blog-form input,
+.admin-layout .blog-form input {
+  font-family: var(--font-manrope), sans-serif;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400px;
+  letter-spacing: 0.5px;
+}
 .admin-layout .blog-form .ad-label-group label,
 .admin-layout .blog-form ::placeholder {
   font-family: var(--font-manrope), sans-serif;
-  color: var(--foreground);
+  color: #888888;
   font-size: 16px;
   font-weight: 400px;
   letter-spacing: 0.5px;
@@ -412,4 +418,19 @@ aside.sidebar .mobile-only {
   .sidebar .mobile-only {
     display: block;
   }
+}
+.admin-layout .blog-form .ad-label-group.sm label {
+  margin: 0 0 0 10px;
+}
+.blog-form form h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.blog-form button.btn {
+  margin-top: 30px;
+}
+.quill {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

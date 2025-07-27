@@ -1,21 +1,22 @@
-// ✅ src/app/admin/blog/page.jsx
+// ✅ src/app/admin/project/page.jsx
 "use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FiPlus, FiEdit2, FiTrash2, FiCopy } from "react-icons/fi";
 
-export default function BlogAdminPage() {
-  const [blogs, setBlogs] = useState([]);
+export default function ProjectAdminPage() {
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch("/api/blog")
+    fetch("/api/project")
       .then((res) => res.json())
-      .then(setBlogs);
+      .then(setProjects);
   }, []);
 
-  const deleteBlog = async (id) => {
-    if (confirm("Delete this blog?")) {
-      const res = await fetch("/api/blog", {
+  const deleteProject = async (id) => {
+    if (confirm("Delete this project?")) {
+      const res = await fetch("/api/project", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -24,67 +25,64 @@ export default function BlogAdminPage() {
       });
 
       if (res.ok) {
-        setBlogs((prev) => prev.filter((b) => b._id !== id));
+        setProjects(projects.filter((p) => p._id !== id));
       } else {
         const error = await res.json();
-        alert("❌ Failed to delete blog: " + error?.error);
+        alert("❌ Failed to delete project: " + error?.error);
       }
     }
   };
 
-  const duplicateBlog = async (id) => {
-    const res = await fetch("/api/blog", {
+  const duplicateProject = async (id) => {
+    const res = await fetch("/api/project", {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ duplicateId: id, type: "blog" }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ duplicateId: id }),
     });
 
     if (res.ok) {
-      const newBlog = await res.json();
-      setBlogs((prev) => [newBlog, ...prev]);
+      const newProject = await res.json();
+      setProjects((prev) => [newProject, ...prev]);
     } else {
       const error = await res.json();
-      alert("❌ Failed to duplicate blog: " + error?.error);
+      alert("❌ Failed to duplicate project: " + error?.error);
     }
   };
 
   return (
     <div className="dashboard-content" style={{ padding: 20 }}>
       <div className="flex-between" style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: "24px" }}>📝 Manage Blogs</h1>
-        <Link href="/admin/blog/create" className="add-btn">
+        <h1 style={{ fontSize: "24px" }}>🏗️ Manage Projects</h1>
+        <Link href="/admin/project/create" className="add-btn">
           <FiPlus /> <span>Add New</span>
         </Link>
       </div>
 
       <div className="blog-list">
-        {blogs.length === 0 ? (
-          <p>No blogs found.</p>
+        {projects.length === 0 ? (
+          <p>No projects found.</p>
         ) : (
-          blogs.map((blog) => (
-            <div key={blog._id} className="blog-card">
+          projects.map((project) => (
+            <div key={project._id} className="blog-card">
               <div className="blog-info">
-                <strong>{blog.title}</strong>
-                <p>{blog.shortDesc?.slice(0, 180)}...</p>
+                <strong>{project.title}</strong>
+                <p>{project.description?.slice(0, 180)}...</p>
               </div>
               <div className="action-buttons">
                 <Link
-                  href={`/admin/blog/edit/${blog._id}`}
+                  href={`/admin/project/edit/${project._id}`}
                   className="edit-btn"
                 >
                   <FiEdit2 /> <span>Edit</span>
                 </Link>
                 <button
-                  onClick={() => duplicateBlog(blog._id)}
+                  onClick={() => duplicateProject(project._id)}
                   className="edit-btn"
-                  title="Duplicate"
                 >
                   <FiCopy /> <span>Duplicate</span>
                 </button>
                 <button
-                  onClick={() => deleteBlog(blog._id)}
+                  onClick={() => deleteProject(project._id)}
                   className="delete-btn"
                 >
                   <FiTrash2 /> <span>Delete</span>
