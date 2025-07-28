@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const titles = [
   { label: "Deira Island", image: "/images/recent-projects-1.webp" },
@@ -55,6 +56,11 @@ export function RecentProjects() {
                   </motion.li>
                 ))}
               </ul>
+              <div className="btn">
+                <Link href="/projects" className="btn-1">
+                  view all projects
+                </Link>
+              </div>
             </div>
           </div>
         </div>

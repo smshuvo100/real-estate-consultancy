@@ -550,6 +550,9 @@ section.recent-projects-sec h2.title-4.uppercase.center {
 .recent-projects .overlay {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 
 .recent-projects .project-titles {
