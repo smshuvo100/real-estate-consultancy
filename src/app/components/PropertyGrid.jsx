@@ -116,7 +116,7 @@ export function PropertyGrid() {
         ? true
         : category.includes("Bed Room")
         ? parseInt(p.bedrooms) === parseInt(category.split(" ")[0])
-        : true;
+        : category === p.propertyType;
     return areaMatch && typeMatch && rangeMatch && categoryMatch;
   });
 
@@ -148,7 +148,6 @@ export function PropertyGrid() {
     <>
       <div ref={topRef}></div>
       <section className="property-grid-section">
-        {sidebarOpen && <div className="filter-overlay"></div>}
         <div className="container">
           <motion.h2
             className="title-4 center"
@@ -159,8 +158,136 @@ export function PropertyGrid() {
           >
             Discover Properties
           </motion.h2>
+          <div className="property-filter-wrap">
+            <div className="top-filter">
+              <div className="filter-group">
+                <label>Property Area</label>
+                <select value={area} onChange={(e) => setArea(e.target.value)}>
+                  <option value="">Choose Area</option>
+                  {uniqueAreas.map((a, i) => (
+                    <option key={i} value={a}>
+                      {a}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="line"></div>
 
-          {/* 📦 Property Cards */}
+              <div className="filter-group">
+                <label>Property Type</label>
+                <select value={type} onChange={(e) => setType(e.target.value)}>
+                  <option value="">Choose Type</option>
+                  {uniqueTypes.map((t, i) => (
+                    <option key={i} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="line"></div>
+
+              <div className="filter-group">
+                <label>Price Range</label>
+                <select
+                  value={range}
+                  onChange={(e) => setRange(e.target.value)}
+                >
+                  <option value="">Choose Price Range</option>
+                  {Object.keys(ranges).map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button className="search-btn" onClick={handleReset}>
+                Reset
+              </button>
+            </div>
+
+            <div className="carfilter-wrap">
+              <div className="category-filter">
+                <button
+                  className={category === "All" ? "active" : ""}
+                  onClick={() => setCategory("All")}
+                >
+                  All
+                </button>
+                {uniqueTypes.map((t) => (
+                  <button
+                    key={t}
+                    className={category === t ? "active" : ""}
+                    onClick={() => setCategory(t)}
+                  >
+                    {t}
+                  </button>
+                ))}
+                {uniqueBedrooms.map((num) => (
+                  <button
+                    key={num}
+                    className={category === `${num} Bed Room` ? "active" : ""}
+                    onClick={() => setCategory(`${num} Bed Room`)}
+                  >
+                    {num} Bed Room
+                  </button>
+                ))}
+              </div>
+
+              <div className="btn">
+                <button
+                  className="filter-sidebar-toggle"
+                  onClick={() => setSidebarOpen(true)}
+                >
+                  <FaFilter /> Filters
+                </button>
+              </div>
+            </div>
+
+            <div
+              ref={sidebarRef}
+              className={`filter-sidebar ${sidebarOpen ? "open" : ""}`}
+            >
+              <div className="sidebar-header">
+                <h4>Filters</h4>
+                <button
+                  className="close-btn"
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <FaTimes />
+                </button>
+              </div>
+              <div className="sidebar-body">
+                <select value={area} onChange={(e) => setArea(e.target.value)}>
+                  <option value="">Property Area</option>
+                  {uniqueAreas.map((a, i) => (
+                    <option key={i} value={a}>
+                      {a}
+                    </option>
+                  ))}
+                </select>
+                <select value={type} onChange={(e) => setType(e.target.value)}>
+                  <option value="">Property Type</option>
+                  {uniqueTypes.map((t, i) => (
+                    <option key={i} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={range}
+                  onChange={(e) => setRange(e.target.value)}
+                >
+                  <option value="">Price Range</option>
+                  {Object.keys(ranges).map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div className="property-grid">
             {filtered.map((property, index) => (
               <motion.div
@@ -238,7 +365,6 @@ export function PropertyGrid() {
             ))}
           </div>
 
-          {/* Pagination */}
           <motion.div
             className="pagination"
             style={{
