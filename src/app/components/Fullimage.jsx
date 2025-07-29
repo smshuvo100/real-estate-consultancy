@@ -6,7 +6,10 @@ import { motion } from "framer-motion";
 export function Fullimage() {
   return (
     <>
-      <section className="full-image">
+      <section
+        className="full-image"
+        style={{ backgroundImage: "url('/images/full-image.webp')" }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 150, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -16,12 +19,12 @@ export function Fullimage() {
           }}
           viewport={{ once: true }}
         >
-          <Image
+          {/* <Image
             src="/images/full-image.webp"
             alt="full image"
             width={1920}
             height={1080}
-          />
+          /> */}
         </motion.div>
       </section>
     </>
