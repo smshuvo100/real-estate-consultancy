@@ -37,17 +37,32 @@ export default function SingleProjectPage() {
 
   if (!project) return <p style={{ padding: 40 }}>Loading...</p>;
 
+  // Slider settings
   const sliderSettings = {
     centerMode: true,
     centerPadding: "400px",
     slidesToShow: 1,
     infinite: true,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     arrows: false,
     responsive: [
-      { breakpoint: 768, settings: { centerPadding: "40px" } },
-      { breakpoint: 480, settings: { centerPadding: "20px" } },
+      {
+        breakpoint: 1024,
+        settings: {
+          centerMode: true,
+          slidesToShow: 1, // ✅ REQUIRED!
+          centerPadding: "50px", // or adjust for tablet
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          centerMode: true,
+          slidesToShow: 1, // ✅ REQUIRED!
+          centerPadding: "50px", // adjust for mobile
+        },
+      },
     ],
   };
 

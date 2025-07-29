@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 const images = [
   "/images/house1.webp",
   "/images/house2.webp",
@@ -15,13 +13,6 @@ const images = [
 ];
 
 export function SlickGallery() {
-  useEffect(() => {
-    // Trigger resize to fix initial slick width issue
-    setTimeout(() => {
-      window.dispatchEvent(new Event("resize"));
-    }, 100);
-  }, []);
-
   const settings = {
     centerMode: true,
     centerPadding: "400px",
@@ -35,16 +26,16 @@ export function SlickGallery() {
         breakpoint: 1024,
         settings: {
           centerMode: true,
-          centerPadding: "100px",
-          slidesToShow: 1,
+          slidesToShow: 1, // ✅ REQUIRED!
+          centerPadding: "150px", // or adjust for tablet
         },
       },
       {
         breakpoint: 768,
         settings: {
           centerMode: true,
-          centerPadding: "20px",
-          slidesToShow: 1,
+          slidesToShow: 1, // ✅ REQUIRED!
+          centerPadding: "50px", // adjust for mobile
         },
       },
     ],

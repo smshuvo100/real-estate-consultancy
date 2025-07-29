@@ -35,6 +35,7 @@ export default function BlogDetailsPage() {
     ? blog.gallery
     : [blog.featuredImage || "/images/default-blog.jpg"];
 
+  // Slider settings
   const sliderSettings = {
     centerMode: true,
     centerPadding: "400px",
@@ -45,12 +46,20 @@ export default function BlogDetailsPage() {
     arrows: false,
     responsive: [
       {
-        breakpoint: 768,
-        settings: { centerPadding: "40px" },
+        breakpoint: 1024,
+        settings: {
+          centerMode: true,
+          slidesToShow: 1, // ✅ REQUIRED!
+          centerPadding: "50px", // or adjust for tablet
+        },
       },
       {
-        breakpoint: 480,
-        settings: { centerPadding: "20px" },
+        breakpoint: 768,
+        settings: {
+          centerMode: true,
+          slidesToShow: 1, // ✅ REQUIRED!
+          centerPadding: "50px", // adjust for mobile
+        },
       },
     ],
   };

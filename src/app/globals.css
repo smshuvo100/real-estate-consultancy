@@ -888,7 +888,48 @@ section.recent-projects-sec h2.title-4.uppercase.center {
    slick Gallery
 --------------------- */
 /**  **/
+.slick-gallery {
+  padding: 60px 0;
+}
 
+.slick-gallery .slick-slide {
+  padding: 0 5px; /* Each slide gap */
+  box-sizing: border-box;
+}
+
+.slick-gallery .slide img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.slick-gallery .slick-center img {
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.slick-gallery .slick-slide.slick-current {
+  transform: scale(1.1);
+}
+
+.slick-gallery .slick-slide {
+  transform: scale(0.8);
+}
+.slick-gallery .slick-slide img {
+  height: 350px !important;
+  object-fit: cover !important;
+}
+@media (max-width: 767px) {
+  body .slick-gallery .slick-slide img {
+    height: 250px !important;
+  }
+}
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  body .slick-gallery .slick-slide img {
+    height: 300px !important;
+  }
+}
 /* ---------------------
    Contact 
 --------------------- */
@@ -1719,6 +1760,19 @@ Pagination
 }
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
+  body .property-details-price ul.property-meta {
+    flex-wrap: wrap;
+  }
+  body .property-details-price ul.property-meta {
+    flex-wrap: wrap;
+  }
+  body .property-features ul.property-features-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  body .floorplans .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
 }
 /* ---------------------
   Property features
@@ -1759,10 +1813,7 @@ section.property-neighborhood {
 .property-neighborhood .subtitle {
   margin-bottom: 20px;
 }
-.slick-gallery .slick-slide img {
-  height: 350px !important;
-  object-fit: cover !important;
-}
+
 section.blog-details-sec {
   padding-top: 100px;
 }
