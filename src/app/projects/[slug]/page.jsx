@@ -303,7 +303,7 @@ export default function SingleProjectPage() {
         </div>
       </section>
 
-      <section className="full-image">
+      <section className="full-image11">
         <Image
           src={project.image || "/images/full-image.webp"}
           alt="floorplan"

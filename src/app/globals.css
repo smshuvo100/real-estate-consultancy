@@ -769,6 +769,9 @@ section.recent-projects-sec h2.title-4.uppercase.center {
   background-size: cover;
   background-position: center;
 }
+section.full-image11 img {
+  width: 100%;
+}
 
 /* ---------------------
     Header
