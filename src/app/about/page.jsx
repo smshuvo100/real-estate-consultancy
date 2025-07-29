@@ -82,7 +82,9 @@ export default function page() {
   return (
     <>
       {/* hero section */}
-      <Hero data={heroData} />
+      <div className="about-hero">
+        <Hero data={heroData} />
+      </div>
 
       {/* about us */}
       <About data={aboutData} />
