@@ -561,9 +561,9 @@ label {
   left: 0;
   color: #aaa;
   font-size: 16px;
-  pointer-events: none;
+  /* pointer-events: none; */
   transition: all 0.3s ease;
-  transform-origin: left;
+  /* transform-origin: left; */
 }
 
 /* Input Focus অথবা Valid হলে Label উপরে উঠবে */
