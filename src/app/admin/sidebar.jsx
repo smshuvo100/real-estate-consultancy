@@ -75,7 +75,7 @@ export default function Sidebar({ isOpen, toggle, close }) {
                 <Link href="/admin/project">All Projects</Link>
               </li>
               <li>
-                <Link href="/admin/recent-project">Recent Projects</Link>
+                <Link href="/admin/recent-project">Featured Projects</Link>
               </li>
             </ul>
           </li>

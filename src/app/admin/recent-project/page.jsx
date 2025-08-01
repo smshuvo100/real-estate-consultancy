@@ -59,7 +59,7 @@ export default function RecentProjectAdminPage() {
   return (
     <div className="dashboard-content" style={{ padding: 20 }}>
       <div className="flex-between" style={{ marginBottom: 20 }}>
-        <h1 style={{ fontSize: "24px" }}>🕘 Recent Projects</h1>
+        <h1 style={{ fontSize: "24px" }}>🕘 Featured Projects</h1>
         <Link href="/admin/recent-project/create" className="add-btn">
           <FiPlus /> <span>Add New</span>
         </Link>
