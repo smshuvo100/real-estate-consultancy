@@ -1,12 +1,22 @@
 // ✅ src/app/admin/sidebar.jsx
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiLogOut, FiHome, FiFileText, FiFolder, FiX } from "react-icons/fi";
+import {
+  FiLogOut,
+  FiHome,
+  FiFileText,
+  FiFolder,
+  FiX,
+  FiPlus,
+  FiMinus,
+} from "react-icons/fi";
 import Image from "next/image";
 
 export default function Sidebar({ isOpen, toggle, close }) {
   const router = useRouter();
+  const [isSubMenuOpen, setSubMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -44,10 +54,30 @@ export default function Sidebar({ isOpen, toggle, close }) {
               <FiFileText /> <span>Blog</span>
             </Link>
           </li>
-          <li>
-            <Link href="/admin/project">
-              <FiFolder /> <span>Project</span>
-            </Link>
+          {/* ✅ Expandable Submenu */}
+          <li className={isSubMenuOpen ? "open" : ""}>
+            <div
+              className="menu-item-with-toggle"
+              onClick={() => setSubMenuOpen(!isSubMenuOpen)}
+            >
+              <span>
+                <FiFolder /> Project
+              </span>
+              <button className="submenu-toggle">
+                {isSubMenuOpen ? <FiMinus /> : <FiPlus />}
+              </button>
+            </div>
+            <ul
+              className="sub-menu"
+              style={{ display: isSubMenuOpen ? "block" : "none" }}
+            >
+              <li>
+                <Link href="/admin/project">All Projects</Link>
+              </li>
+              <li>
+                <Link href="/admin/recent-project">Recent Projects</Link>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

@@ -46,17 +46,16 @@
 .admin-layout .sidebar .sidebar-nav ul {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
 }
 
 .admin-layout .sidebar .sidebar-nav ul li {
   margin-bottom: 15px;
 }
-
+.admin-layout .sidebar .sidebar-nav ul li div,
 .admin-layout .sidebar .sidebar-nav ul li a {
   color: var(--foreground);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 400;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -324,7 +323,7 @@ aside.sidebar .mobile-only {
 .admin-layout .blog-form textarea.input,
 .admin-layout .blog-form input {
   font-family: var(--font-manrope), sans-serif;
-  color: #fff;
+  color: var(--foreground);
   font-size: 16px;
   font-weight: 400px;
   letter-spacing: 0.5px;
@@ -433,4 +432,45 @@ aside.sidebar .mobile-only {
 .quill {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.menu-item-with-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-item-with-toggle span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submenu-toggle {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.admin-layout .sidebar button.submenu-toggle {
+  width: 38px;
+  height: 38px;
+  background: #3232327d;
+  color: var(--foreground);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  border: 1px solid #2c2c2c;
+}
+.admin-layout .sidebar ul.sub-menu li {
+  margin-bottom: 0 !important;
+  padding: 4px 0 4px 26px;
+}
+.admin-layout .sidebar ul.sub-menu li a {
+  font-size: 16px;
+  color: #777676 !important;
+  font-weight: 400 !important;
 }
