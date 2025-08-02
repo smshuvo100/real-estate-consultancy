@@ -16,6 +16,7 @@ export default function CreateProjectPage() {
     title: "",
     slug: "",
     description: "",
+    isFeatured: false, // ✅ NEW FIELD
     featuredImages: [],
     sidebarImages: [],
     price: "",
@@ -99,6 +100,19 @@ export default function CreateProjectPage() {
           onChange={(v) => setForm({ ...form, description: v })}
         />
 
+        {/* ✅ Set Featured Project checkbox */}
+        <div className="ad-label-flex sm">
+          <div className="ad-label-group">
+            <input
+              type="checkbox"
+              id="isFeatured"
+              name="isFeatured"
+              checked={form.isFeatured}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="isFeatured">Set Featured Project</label>
+          </div>
+        </div>
         <input
           name="price"
           placeholder="Price"
@@ -143,24 +157,29 @@ export default function CreateProjectPage() {
         />
 
         <h2>Features</h2>
-        {[
-          "elevator",
-          "laundryFacility",
-          "walkInCloset",
-          "firePlace",
-          "balcony",
-          "garage",
-        ].map((feature) => (
-          <div className="ad-label-group sm" key={feature}>
-            <input
-              type="checkbox"
-              name={feature}
-              checked={form[feature]}
-              onChange={handleInputChange}
-            />
-            <label>{feature.replace(/([A-Z])/g, " $1")}</label>
-          </div>
-        ))}
+        <div className="ad-label-flex">
+          {[
+            "elevator",
+            "laundryFacility",
+            "walkInCloset",
+            "firePlace",
+            "balcony",
+            "garage",
+          ].map((feature) => (
+            <div className="ad-label-group sm" key={feature}>
+              <input
+                type="checkbox"
+                id={feature}
+                name={feature}
+                checked={form[feature]}
+                onChange={handleInputChange}
+              />
+              <label htmlFor={feature}>
+                {feature.replace(/([A-Z])/g, " $1")}
+              </label>
+            </div>
+          ))}
+        </div>
 
         <input
           name="address"

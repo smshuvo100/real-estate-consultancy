@@ -54,8 +54,15 @@ export default function Sidebar({ isOpen, toggle, close }) {
               <FiFileText /> <span>Blog</span>
             </Link>
           </li>
+
+          <li>
+            <Link href="/admin/project">
+              <FiFolder /> <span>Project</span>
+            </Link>
+          </li>
           {/* ✅ Expandable Submenu */}
-          <li className={isSubMenuOpen ? "open" : ""}>
+
+          {/* <li className={isSubMenuOpen ? "open" : ""}>
             <div
               className="menu-item-with-toggle"
               onClick={() => setSubMenuOpen(!isSubMenuOpen)}
@@ -78,7 +85,7 @@ export default function Sidebar({ isOpen, toggle, close }) {
                 <Link href="/admin/recent-project">Featured Projects</Link>
               </li>
             </ul>
-          </li>
+          </li> */}
         </ul>
       </nav>
 

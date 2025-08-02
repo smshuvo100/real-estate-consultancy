@@ -474,3 +474,19 @@ aside.sidebar .mobile-only {
   color: #777676 !important;
   font-weight: 400 !important;
 }
+
+.admin-layout .ad-label-flex input[type="checkbox"] {
+  width: auto;
+}
+.admin-layout .ad-label-flex {
+  column-gap: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.admin-layout .ad-label-flex label {
+  text-transform: capitalize;
+}
+.admin-layout .ad-label-flex.sm label {
+  margin-left: 12px;
+}

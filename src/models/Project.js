@@ -9,6 +9,9 @@ const ProjectSchema = new mongoose.Schema(
     slug: { type: String, unique: true }, // ✅ Unique slug
     description: { type: String, required: true }, // 2: Description
 
+    // Set Featured Project
+    isFeatured: { type: Boolean, default: false },
+
     // 🖼️ Images
     featuredImages: [String], // 3: Featured Images
     sidebarImages: [String], // 4: Sidebar 2 Images

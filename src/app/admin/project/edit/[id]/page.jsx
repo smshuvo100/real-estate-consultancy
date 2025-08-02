@@ -23,6 +23,7 @@ export default function EditProjectPage() {
       if (project) {
         setForm({
           ...project,
+          isFeatured: !!project.isFeatured, // ✅ Add this line
           elevator: !!project.elevator,
           laundryFacility: !!project.laundryFacility,
           walkInCloset: !!project.walkInCloset,
@@ -108,6 +109,20 @@ export default function EditProjectPage() {
           onChange={(v) => setForm((prev) => ({ ...prev, description: v }))}
         />
 
+        {/* ✅ Set Featured Project checkbox */}
+        <div className="ad-label-flex sm">
+          <div className="ad-label-group">
+            <input
+              type="checkbox"
+              id="isFeatured"
+              name="isFeatured"
+              checked={form.isFeatured}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="isFeatured">Set Featured Project</label>
+          </div>
+        </div>
+
         <input
           name="price"
           value={form.price}
@@ -146,24 +161,27 @@ export default function EditProjectPage() {
         />
 
         <h2>Features</h2>
-        {[
-          "elevator",
-          "laundryFacility",
-          "walkInCloset",
-          "firePlace",
-          "balcony",
-          "garage",
-        ].map((key) => (
-          <div className="ad-label-group sm" key={key}>
-            <input
-              type="checkbox"
-              name={key}
-              checked={form[key]}
-              onChange={handleInputChange}
-            />
-            <label>{key.replace(/([A-Z])/g, " $1")}</label>
-          </div>
-        ))}
+        <div className="ad-label-flex">
+          {[
+            "elevator",
+            "laundryFacility",
+            "walkInCloset",
+            "firePlace",
+            "balcony",
+            "garage",
+          ].map((key) => (
+            <div className="ad-label-group sm" key={key}>
+              <input
+                type="checkbox"
+                id={key} // ✅ set id
+                name={key}
+                checked={form[key]}
+                onChange={handleInputChange}
+              />
+              <label htmlFor={key}>{key.replace(/([A-Z])/g, " $1")}</label>
+            </div>
+          ))}
+        </div>
 
         <input
           name="address"

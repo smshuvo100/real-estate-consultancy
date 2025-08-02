@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -10,9 +11,10 @@ export function RecentProjects() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("/api/recent-project");
+        const res = await fetch("/api/project");
         const data = await res.json();
-        setProjects(data || []);
+        const featured = (data.projects || []).filter((p) => p.isFeatured);
+        setProjects(featured);
       } catch (error) {
         console.error("❌ Failed to fetch recent projects:", error);
       }
@@ -40,7 +42,9 @@ export function RecentProjects() {
       <div
         className="recent-projects"
         style={{
-          backgroundImage: `url(${projects[activeIndex]?.bgImage})`,
+          backgroundImage: `url(${
+            projects[activeIndex]?.featuredImages?.[0] || ""
+          })`,
           transition: "background-image 0.6s ease-in-out",
         }}
       >
@@ -61,7 +65,7 @@ export function RecentProjects() {
                   }}
                   viewport={{ once: true }}
                 >
-                  <Link href={item.url}>{item.title}</Link>
+                  <Link href={`/projects/${item.slug}`}>{item.title}</Link>
                 </motion.li>
               ))}
             </ul>

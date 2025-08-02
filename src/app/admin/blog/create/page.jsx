@@ -76,8 +76,6 @@ export default function CreateBlogPage() {
     if (res.ok) {
       router.push("/admin/blog");
     } else {
-      const err = await res.json();
-      console.error("❌ Blog submission error:", err);
       alert("Blog submission failed. Check console for details.");
     }
   };
