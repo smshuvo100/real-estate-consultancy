@@ -147,6 +147,7 @@ a {
   font-size: 56px;
   line-height: 139.523%; /* 78.133px */
 }
+button[type="submit"],
 .blog-form button.btn,
 .nav-links a.btn-sm,
 .btn a,

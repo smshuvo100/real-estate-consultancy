@@ -1,4 +1,3 @@
-// ✅ src/app/admin/sidebar.jsx
 "use client";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,7 +15,11 @@ import Image from "next/image";
 
 export default function Sidebar({ isOpen, toggle, close }) {
   const router = useRouter();
-  const [isSubMenuOpen, setSubMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(""); // NEW
+
+  const toggleDropdown = (menu) => {
+    setOpenDropdown((prev) => (prev === menu ? "" : menu));
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -54,38 +57,69 @@ export default function Sidebar({ isOpen, toggle, close }) {
               <FiFileText /> <span>Blog</span>
             </Link>
           </li>
-
           <li>
             <Link href="/admin/project">
               <FiFolder /> <span>Project</span>
             </Link>
           </li>
-          {/* ✅ Expandable Submenu */}
 
-          {/* <li className={isSubMenuOpen ? "open" : ""}>
+          {/* ✅ About Submenu */}
+          <li className={openDropdown === "about" ? "open" : ""}>
             <div
               className="menu-item-with-toggle"
-              onClick={() => setSubMenuOpen(!isSubMenuOpen)}
+              onClick={() => toggleDropdown("about")}
             >
               <span>
-                <FiFolder /> Project
+                <FiFolder /> About
               </span>
               <button className="submenu-toggle">
-                {isSubMenuOpen ? <FiMinus /> : <FiPlus />}
+                {openDropdown === "about" ? <FiMinus /> : <FiPlus />}
               </button>
             </div>
             <ul
               className="sub-menu"
-              style={{ display: isSubMenuOpen ? "block" : "none" }}
+              style={{ display: openDropdown === "about" ? "block" : "none" }}
             >
               <li>
-                <Link href="/admin/project">All Projects</Link>
+                <Link href="/admin/about-tabs">About Tabs</Link>
               </li>
               <li>
-                <Link href="/admin/recent-project">Featured Projects</Link>
+                <Link href="/admin/founders">Founders</Link>
+              </li>
+              <li>
+                <Link href="/admin/our-team">Our Team</Link>
               </li>
             </ul>
-          </li> */}
+          </li>
+
+          {/* ✅ Faq Submenu */}
+          <li className={openDropdown === "faqs" ? "open" : ""}>
+            <div
+              className="menu-item-with-toggle"
+              onClick={() => toggleDropdown("faqs")}
+            >
+              <span>
+                <FiFolder /> Faqs
+              </span>
+              <button className="submenu-toggle">
+                {openDropdown === "faqs" ? <FiMinus /> : <FiPlus />}
+              </button>
+            </div>
+            <ul
+              className="sub-menu"
+              style={{ display: openDropdown === "faqs" ? "block" : "none" }}
+            >
+              <li>
+                <Link href="/admin/property-faq">Property Faq</Link>
+              </li>
+              <li>
+                <Link href="/admin/investor-faq">Investor Faq</Link>
+              </li>
+              <li>
+                <Link href="/admin/project-faq">Project Faq</Link>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
 

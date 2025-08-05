@@ -1,9 +1,44 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Hero } from "../components/Hero";
 import { FaqTabs } from "../components/FaqTabs";
 
-export default function page() {
-  // Hero Data
+export default function FaqPage() {
+  const [propertyFaqs, setPropertyFaqs] = useState([]);
+  const [investorFaqs, setInvestorFaqs] = useState([]);
+
+  // ⛳️ Fetch Property FAQs from MongoDB
+  useEffect(() => {
+    const fetchPropertyFaqs = async () => {
+      try {
+        const res = await fetch("/api/property-faq");
+        const data = await res.json();
+        setPropertyFaqs(data?.faqs || data || []);
+      } catch (err) {
+        console.error("❌ Failed to fetch property FAQ:", err);
+      }
+    };
+
+    fetchPropertyFaqs();
+  }, []);
+
+  // ⛳️ Fetch Investor FAQs from MongoDB
+  useEffect(() => {
+    const fetchInvestorFaqs = async () => {
+      try {
+        const res = await fetch("/api/investor-faq");
+        const data = await res.json();
+        setInvestorFaqs(data?.faqs || data || []);
+      } catch (err) {
+        console.error("❌ Failed to fetch investor FAQ:", err);
+      }
+    };
+
+    fetchInvestorFaqs();
+  }, []);
+
+  // ✅ Hero data
   const heroData = {
     heroImage: "/images/hero1.webp",
     overlayColor: "rgba(0, 0, 0, 0.1)",
@@ -16,137 +51,24 @@ export default function page() {
     },
   };
 
-  // FaqTabs Data
+  // ✅ FaqTabs Data from DB
   const FaqTabsData = {
     tabs: [
       {
         label: "Property FAQ",
         title: "Property",
-        faqs: [
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-          {
-            question: "What is the first step in buying a home?",
-            answer:
-              "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-          },
-        ],
+        faqs: propertyFaqs,
       },
       {
         label: "Investor FAQ",
         title: "Investor",
-        faqs: [
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-          {
-            question: "How do I start investing?",
-            answer:
-              "Begin by understanding your goals and speaking with a financial advisor.",
-          },
-        ],
+        faqs: investorFaqs,
       },
     ],
   };
 
   return (
     <>
-      {/* hero section */}
       <Hero data={heroData} />
       <FaqTabs data={FaqTabsData} />
     </>

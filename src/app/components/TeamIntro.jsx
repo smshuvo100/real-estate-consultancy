@@ -1,10 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 export function TeamIntro() {
+  const [founder, setFounder] = useState(null);
+
+  useEffect(() => {
+    const fetchFounder = async () => {
+      try {
+        const res = await fetch("/api/founder", { cache: "no-store" });
+        const data = await res.json();
+        setFounder(data);
+      } catch (err) {
+        console.error("❌ Failed to fetch founder data:", err);
+      }
+    };
+    fetchFounder();
+  }, []);
+
+  if (!founder) return null;
+
   return (
     <section className="team-intro">
       <div className="container">
@@ -16,12 +33,14 @@ export function TeamIntro() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <Image
-              src="/images/john-doe.webp"
-              alt="John Doe"
-              width={1000}
-              height={1047}
-            />
+            {founder.image && (
+              <Image
+                src={founder.image}
+                alt={founder.name}
+                width={1000}
+                height={1047}
+              />
+            )}
           </motion.div>
 
           <motion.div
@@ -31,26 +50,12 @@ export function TeamIntro() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <h2 className="title-3">John Doe</h2>
-            <p className="intro-role">Founder</p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Fames morbi id ut a.
-              Sodales dignissim eget habitasse massa proin tincidunt a placerat.
-              Accumsan neque posuere nulla commodo. Vitae neque sem in vel
-              varius vulputate velit amet feugiat. Feugiat quis nunc aliquam
-              facilisis. Mi purus vehicula in ultricies pulvinar condimentum
-              non. Tortor egestas donec sed in. Quis gravida nulla aliquam lacus
-              tristique. Imperdiet nibh facilisi sed amet.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Fames morbi id ut a.
-              Sodales dignissim eget habitasse massa proin tincidunt a placerat.
-              Accumsan neque posuere nulla commodo. Vitae neque sem in vel
-              varius vulputate velit amet feugiat. Feugiat quis nunc aliquam
-              facilisis. Mi purus vehicula in ultricies pulvinar condimentum
-              non. Tortor egestas donec sed in. Quis gravida nulla aliquam lacus
-              tristique. Imperdiet nibh facilisi sed amet.
-            </p>
+            <h2 className="title-3">{founder.name}</h2>
+            <p className="intro-role">{founder.title}</p>
+            <div
+              className="founder-description"
+              dangerouslySetInnerHTML={{ __html: founder.description }}
+            />
           </motion.div>
         </div>
       </div>

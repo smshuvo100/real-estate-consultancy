@@ -336,7 +336,7 @@ aside.sidebar .mobile-only {
   font-weight: 400px;
   letter-spacing: 0.5px;
 }
-
+.ql-toolbar.ql-snow,
 .admin-layout .blog-form .ql-toolbar.ql-snow {
   background-color: var(--foreground) !important;
   color: var(--background) !important;
@@ -489,4 +489,175 @@ aside.sidebar .mobile-only {
 }
 .admin-layout .ad-label-flex.sm label {
   margin-left: 12px;
+}
+
+/* 
+-----------------
+  ABOUT TAB
+------------------
+*/
+/* Modal Wrapper */
+.about-tabs .modal {
+  max-height: 90vh; /* Limits modal height */
+  overflow-y: auto; /* Allows scroll inside modal */
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Keep header fixed */
+.about-tabs .modal-header {
+  /* position: sticky;
+  top: 0; */
+  /* background: #fff; */
+  padding-bottom: 1rem;
+  z-index: 10;
+  border-bottom: 1px solid #ddd;
+}
+.about-tabs button.modal-close {
+  width: 40px;
+  height: 40px;
+  background-color: #4e4e4e;
+  border-radius: 100%;
+}
+/* Body padding below header */
+.about-tabs .modal-body {
+  padding-top: 1rem;
+}
+
+/* ✅ All styles scoped under .about-tabs */
+.about-tabs.container {
+  padding: 20px;
+}
+
+/* Header */
+.about-tabs .about-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.about-tabs .about-title {
+  font-size: 22px;
+  margin: 0;
+}
+
+/* Table */
+.about-tabs .table-wrap {
+  overflow-x: auto;
+}
+.about-tabs .about-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.about-tabs .about-table th,
+.about-tabs .about-table td {
+  text-align: left;
+  border-bottom: 1px solid #333;
+  padding: 10px 8px;
+  vertical-align: top;
+}
+.about-tabs .about-table td {
+  border-bottom-color: #222;
+}
+.about-tabs .about-table .col-actions,
+.about-tabs .about-table .actions {
+  white-space: nowrap;
+}
+
+/* Buttons */
+.about-tabs .btn {
+  appearance: none;
+  border: 1px solid var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+  padding: 6px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 120ms ease, background 120ms ease,
+    border-color 120ms ease;
+}
+.about-tabs .btn:hover {
+  background: transparent;
+  border-color: var(--foreground);
+  color: var(--foreground);
+}
+.about-tabs .btn:active {
+  transform: scale(0.98);
+}
+/* Modal + overlay */
+.about-tabs.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(0 0 0); /* ← overlay */
+  z-index: 1000;
+}
+.about-tabs .modal {
+  width: min(900px, 92vw);
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+}
+.about-tabs .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.about-tabs .modal-title {
+  margin: 0;
+  font-size: 18px;
+}
+.about-tabs .modal-close {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #dddfdf;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Form */
+
+.about-tabs .textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Counters grid */
+.about-tabs .counter-grid {
+  display: grid;
+  gap: 10px;
+}
+.about-tabs .counter-row {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 30px;
+}
+.about-tabs .w-140 {
+  width: 140px;
+}
+
+/* Form footer */
+.about-tabs .form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.about-tabs .form-group label.label {
+  display: none;
+}
+
+.about-tabs form.form {
+  display: block;
 }

@@ -106,21 +106,25 @@ export function About({ data }) {
                           animate="center"
                           exit="exit"
                         >
+                          {/* ✅ Render HTML safely */}
                           {tabs[activeTab]?.content && (
-                            <div className="tab-text">
-                              {tabs[activeTab].content.map((para, idx) => (
-                                <p key={idx}>{para}</p>
-                              ))}
-                              {tabs[activeTab].stats?.length > 0 && (
-                                <div className="grid">
-                                  {tabs[activeTab].stats.map((stat, i) => (
-                                    <div className="box" key={i}>
-                                      <h2 className="title-5">{stat.value}</h2>
-                                      <p>{stat.label}</p>
-                                    </div>
-                                  ))}
+                            <div
+                              className="tab-text"
+                              dangerouslySetInnerHTML={{
+                                __html: tabs[activeTab].content,
+                              }}
+                            />
+                          )}
+
+                          {/* ✅ Stats under tab content */}
+                          {tabs[activeTab].stats?.length > 0 && (
+                            <div className="grid">
+                              {tabs[activeTab].stats.map((stat, i) => (
+                                <div className="box" key={i}>
+                                  <h2 className="title-5">{stat.value}</h2>
+                                  <p>{stat.label}</p>
                                 </div>
-                              )}
+                              ))}
                             </div>
                           )}
                         </motion.div>
@@ -131,6 +135,7 @@ export function About({ data }) {
               )}
             </motion.div>
 
+            {/* Image box (empty placeholder if not needed) */}
             {images?.length > 0 && (
               <motion.div
                 className="img-box"

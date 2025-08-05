@@ -1,72 +1,68 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function EditRecentProjectPage() {
+export default function EditTeamMemberPage() {
   const router = useRouter();
   const { id } = useParams();
 
   const [form, setForm] = useState({
+    name: "",
     title: "",
-    url: "",
-    bgImage: "",
+    image: "",
+    description: "",
   });
 
-  // fetch project data
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("/api/recent-project");
+    const fetchTeam = async () => {
+      const res = await fetch("/api/team");
       const data = await res.json();
-      const project = data.find((p) => p._id === id);
-      if (project) {
-        setForm(project);
-      } else {
-        alert("Recent Project not found");
-      }
+      const member = data.find((m) => m._id === id);
+      if (!member) return alert("Team member not found");
+      setForm(member);
     };
-    fetchData();
+    fetchTeam();
   }, [id]);
 
-  // input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // image upload
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const fd = new FormData();
     fd.append("file", file);
+
     const res = await fetch("/api/upload", {
       method: "POST",
       body: fd,
     });
+
     const data = await res.json();
     if (data.success) {
-      setForm((prev) => ({ ...prev, bgImage: data.url }));
+      setForm((prev) => ({ ...prev, image: data.url }));
     }
   };
 
-  // image remove
   const handleRemoveImage = () => {
-    setForm((prev) => ({ ...prev, bgImage: "" }));
+    setForm((prev) => ({ ...prev, image: "" }));
   };
 
-  // form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/recent-project", {
+    const res = await fetch("/api/team", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
+
     if (res.ok) {
-      router.push("/admin/recent-project");
+      router.push("/admin/our-team");
     } else {
       alert("Update failed");
     }
@@ -74,52 +70,68 @@ export default function EditRecentProjectPage() {
 
   return (
     <div className="blog-form">
-      <h1>Edit Recent Project</h1>
+      <h1>Edit Team Member</h1>
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
+          name="name"
+          placeholder="Name"
+          value={form.name}
+          onChange={handleInputChange}
+          className="input"
+        />
+        <input
           name="title"
+          placeholder="Title"
           value={form.title}
           onChange={handleInputChange}
-          placeholder="Title"
           className="input"
         />
-
-        <input
-          type="text"
-          name="url"
-          value={form.url}
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={form.description}
           onChange={handleInputChange}
-          placeholder="URL"
           className="input"
-        />
+          rows={5}
+        ></textarea>
 
-        <div className="ad-label-group">
-          <label>Upload Background Image:</label>
+        <div className="ad-label-group" style={{ marginTop: 20 }}>
+          <label>Upload Image:</label>
           <input type="file" onChange={handleImageUpload} />
-          {form.bgImage && (
-            <div style={{ position: "relative", display: "inline-block" }}>
+
+          {form.image && (
+            <div
+              style={{
+                position: "relative",
+                display: "inline-block",
+                marginTop: "10px",
+              }}
+            >
               <Image
-                src={form.bgImage}
-                width={150}
-                height={100}
-                alt="background"
+                src={form.image}
+                width={120}
+                height={120}
+                alt="Team"
+                style={{ borderRadius: "8px", display: "block" }}
               />
               <button
                 type="button"
                 onClick={handleRemoveImage}
                 style={{
                   position: "absolute",
-                  top: 5,
-                  right: -10,
+                  top: "0",
+                  right: "-8px",
                   background: "#d33",
                   color: "#fff",
                   border: "none",
                   borderRadius: "50%",
-                  width: 20,
-                  height: 20,
-                  fontSize: 14,
+                  width: "24px",
+                  height: "24px",
+                  fontSize: "16px",
+                  lineHeight: "1",
+                  textAlign: "center",
                   cursor: "pointer",
+                  zIndex: 10,
                 }}
               >
                 ×
@@ -129,7 +141,7 @@ export default function EditRecentProjectPage() {
         </div>
 
         <button type="submit" className="btn">
-          Update Project
+          Update Member
         </button>
       </form>
     </div>
