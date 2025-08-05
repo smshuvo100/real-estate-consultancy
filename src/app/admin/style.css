@@ -661,3 +661,10 @@ aside.sidebar .mobile-only {
 .about-tabs form.form {
   display: block;
 }
+.email-recipients li.blog-card {
+  min-height: 110px;
+}
+.email-recipients li.blog-card button.delete-btn {
+  display: block;
+  max-width: 80px;
+}

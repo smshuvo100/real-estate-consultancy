@@ -1,10 +1,17 @@
 // src/app/api/contact/contacthome/route.js
-
 import nodemailer from "nodemailer";
+import { connectToDB } from "@/lib/db";
+import EmailRecipient from "@/models/EmailRecipient";
 
 export async function POST(req) {
   try {
     const data = await req.json();
+
+    // ⛳️ Connect to MongoDB and fetch recipients
+    await connectToDB();
+    const recipients = await EmailRecipient.find().then((list) =>
+      list.map((item) => item.email)
+    );
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -20,7 +27,7 @@ export async function POST(req) {
 
     const mail = await transporter.sendMail({
       from: `"SFK Real Estate Consultancy" <${process.env.GMAIL_USER}>`,
-      to: ["smshuvo100@gmail.com", "waseem.linuxfreakz@gmail.com"].join(", "),
+      to: recipients.join(", "),
       subject: `Contact Form Submission – ${data.name}`,
       html: `
         <h2>New Contact Message</h2>

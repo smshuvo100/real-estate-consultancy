@@ -2,6 +2,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { MdEmail } from "react-icons/md";
+import { FaBuilding } from "react-icons/fa";
+import { FaQuestionCircle } from "react-icons/fa";
+import { BiInfoCircle } from "react-icons/bi";
 import {
   FiLogOut,
   FiHome,
@@ -59,7 +63,7 @@ export default function Sidebar({ isOpen, toggle, close }) {
           </li>
           <li>
             <Link href="/admin/project">
-              <FiFolder /> <span>Project</span>
+              <FaBuilding /> <span>Project</span>
             </Link>
           </li>
 
@@ -70,7 +74,7 @@ export default function Sidebar({ isOpen, toggle, close }) {
               onClick={() => toggleDropdown("about")}
             >
               <span>
-                <FiFolder /> About
+                <BiInfoCircle /> About
               </span>
               <button className="submenu-toggle">
                 {openDropdown === "about" ? <FiMinus /> : <FiPlus />}
@@ -99,7 +103,7 @@ export default function Sidebar({ isOpen, toggle, close }) {
               onClick={() => toggleDropdown("faqs")}
             >
               <span>
-                <FiFolder /> Faqs
+                <FaQuestionCircle /> Faqs
               </span>
               <button className="submenu-toggle">
                 {openDropdown === "faqs" ? <FiMinus /> : <FiPlus />}
@@ -119,6 +123,13 @@ export default function Sidebar({ isOpen, toggle, close }) {
                 <Link href="/admin/project-faq">Project Faq</Link>
               </li>
             </ul>
+          </li>
+
+          {/* email recipients */}
+          <li>
+            <Link href="/admin/email-recipients">
+              <MdEmail /> <span>Email Recipients</span>
+            </Link>
           </li>
         </ul>
       </nav>

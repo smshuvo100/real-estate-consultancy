@@ -1,10 +1,19 @@
 // src/app/api/contact/route.js
 import nodemailer from "nodemailer";
+import { connectToDB } from "@/lib/db";
+import EmailRecipient from "@/models/EmailRecipient";
 
 export async function POST(req) {
   try {
     const data = await req.json();
 
+    // ⛳️ Get recipient emails from DB
+    await connectToDB();
+    const recipients = await EmailRecipient.find().then((list) =>
+      list.map((item) => item.email)
+    );
+
+    // ✅ Setup mail transporter
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -17,9 +26,10 @@ export async function POST(req) {
 
     await transporter.verify();
 
+    // ✅ Send email
     const mail = await transporter.sendMail({
       from: `"SFK Real Estate Consultancy" <${process.env.GMAIL_USER}>`,
-      to: ["smshuvo100gmail.com", "waseem.linuxfreakz@gmail.com"].join(", "),
+      to: recipients.join(", "),
       subject: `New Contact Form – ${data.firstName} ${data.lastName}`,
       html: `
         <h2>New Contact Submission</h2>
