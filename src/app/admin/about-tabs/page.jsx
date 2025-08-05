@@ -27,7 +27,7 @@ function Modal({ open, title, children, onClose }) {
 }
 
 // --- Main Page
-export function AboutAdminPage() {
+export default function AboutAdminTabPage() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null);
@@ -235,6 +235,3 @@ export function AboutAdminPage() {
     </div>
   );
 }
-
-export { AboutAdminPage };
-export default AboutAdminPage;
