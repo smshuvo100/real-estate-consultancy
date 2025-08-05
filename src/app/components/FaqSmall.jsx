@@ -1,36 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+
 export default function FaqSmall() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [faqItems, setFaqItems] = useState([]);
 
-  const faqItems = [
-    {
-      question: "What is the first step in buying a home?",
-      answer:
-        "Researching the market and getting pre-approved for a mortgage are typically the first steps.",
-    },
-    {
-      question: "How do I schedule a property tour?",
-      answer:
-        "You can schedule a tour through our website or call our support line directly.",
-    },
-    {
-      question: "Do you assist with mortgage advice?",
-      answer: "Yes, we have mortgage experts to guide you.",
-    },
-    {
-      question: "How do I schedule a property tour?",
-      answer:
-        "You can schedule a tour through our website or call our support line directly.",
-    },
-    {
-      question: "Do you assist with mortgage advice?",
-      answer: "Yes, we have mortgage experts to guide you.",
-    },
-  ];
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const res = await fetch("/api/project-faq");
+        const data = await res.json();
+        setFaqItems(data || []);
+      } catch (err) {
+        console.error("❌ Failed to fetch project FAQs:", err);
+      }
+    };
+
+    fetchFaqs();
+  }, []);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -43,7 +33,7 @@ export default function FaqSmall() {
           <div className="grid-item">
             {faqItems.map((item, index) => (
               <div
-                key={index}
+                key={item._id || index}
                 className={`faq-item ${openIndex === index ? "open" : ""}`}
               >
                 <button
@@ -70,6 +60,7 @@ export default function FaqSmall() {
               </div>
             ))}
           </div>
+
           <motion.div
             className="grid-item"
             initial={{ opacity: 0, y: 60 }}

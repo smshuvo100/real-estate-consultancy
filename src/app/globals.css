@@ -1121,8 +1121,16 @@ section.full-image11 img {
 .faq-tabs .flex-wrap .tabsm-box {
   width: 50%;
 }
+
+.single-hero .title-1 {
+  font-size: 80px;
+}
+
 /* Mobile */
 @media (max-width: 767px) {
+  body .single-hero .title-1 {
+    font-size: 30px;
+  }
   body .faq-tabs .flex-wrap {
     display: block;
   }
