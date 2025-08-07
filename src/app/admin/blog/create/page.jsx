@@ -1,4 +1,3 @@
-// ✅ src/app/admin/blog/create/page.jsx
 "use client";
 
 import { useState } from "react";
@@ -13,12 +12,13 @@ export default function CreateBlogPage() {
   const router = useRouter();
 
   const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState(""); // ✅ new slug input
+  const [slug, setSlug] = useState("");
   const [category, setCategory] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [content, setContent] = useState("");
   const [featuredImage, setFeaturedImage] = useState("");
   const [gallery, setGallery] = useState([]);
+  const [loadingAi, setLoadingAi] = useState(false);
 
   const today = new Date().toLocaleDateString("en-US", {
     month: "long",
@@ -50,6 +50,42 @@ export default function CreateBlogPage() {
     }
   };
 
+  const generateContentWithAI = async () => {
+    const input = content?.trim();
+
+    if (!input) {
+      alert("Please write something in the editor before clicking AI button.");
+      return;
+    }
+
+    const prompt = `Please respond to the following instruction or message as a smart AI assistant:\n\n"${input}"`;
+
+    setLoadingAi(true);
+
+    try {
+      const res = await fetch("/api/ai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      const data = await res.json();
+      setLoadingAi(false);
+
+      if (data.success) {
+        setContent(data.content); // চাইলে append করতেও পারেন
+      } else {
+        alert("AI failed: " + data.error);
+      }
+    } catch (err) {
+      console.error("AI error:", err);
+      setLoadingAi(false);
+      alert("Something went wrong");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -57,7 +93,7 @@ export default function CreateBlogPage() {
       date: today,
       adminName: "Admin",
       title,
-      slug: slug?.trim(), // ✅ added
+      slug: slug?.trim(),
       category,
       shortDesc,
       content,
@@ -76,7 +112,7 @@ export default function CreateBlogPage() {
     if (res.ok) {
       router.push("/admin/blog");
     } else {
-      alert("Blog submission failed. Check console for details.");
+      alert("Blog submission failed");
     }
   };
 
@@ -133,6 +169,18 @@ export default function CreateBlogPage() {
               <Image key={idx} src={img} width={80} height={80} alt="" />
             ))}
           </div>
+        </div>
+
+        {/* ✨ AI Generate Button */}
+        <div style={{ margin: "20px 0" }}>
+          <button
+            type="button"
+            onClick={generateContentWithAI}
+            className="btn"
+            disabled={loadingAi}
+          >
+            {loadingAi ? "Generating..." : "✍️ Generate Content With AI"}
+          </button>
         </div>
 
         {/* 📝 Rich Text Editor */}

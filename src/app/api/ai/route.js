@@ -11,39 +11,40 @@ export async function POST(req) {
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-4o", // or try gpt-3.5-turbo
+        model: "gpt-4o",
         messages: [
           {
             role: "system",
-            content: "You are a helpful assistant that writes blog content.",
+            content:
+              "You are an expert blog writer. You generate long-form, engaging blog posts based on the provided title and introduction.",
           },
           {
             role: "user",
             content:
-              prompt || "Write a blog intro about real estate investment.",
+              prompt ||
+              "Write a blog article about real estate investment in Dubai.",
           },
         ],
       }),
     });
 
     const data = await response.json();
-    console.log("📦 OpenAI full response:", JSON.stringify(data, null, 2)); // 👈 LOG
+    console.log("📦 OpenAI full response:", JSON.stringify(data, null, 2));
 
     const aiText = data?.choices?.[0]?.message?.content;
 
     if (!aiText) {
-      console.error("❌ Missing content:", data);
       return NextResponse.json(
-        { success: false, error: "No content from OpenAI" },
+        { success: false, error: "No response from OpenAI" },
         { status: 500 }
       );
     }
 
     return NextResponse.json({ success: true, content: aiText });
-  } catch (err) {
-    console.error("❌ Error in API:", err);
+  } catch (error) {
+    console.error("❌ Error in OpenAI call:", error);
     return NextResponse.json(
-      { success: false, error: err.message },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }
