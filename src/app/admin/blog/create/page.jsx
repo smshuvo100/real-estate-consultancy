@@ -49,7 +49,7 @@ export default function CreateBlogPage() {
       }
     }
   };
-
+  // heloo
   const generateContentWithAI = async () => {
     const input = content?.trim();
 
