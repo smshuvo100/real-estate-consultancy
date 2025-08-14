@@ -197,6 +197,55 @@ export function OurApproach() {
           </div>
         </div>
       </section>
+
+      <section className="our-approach">
+        <div className="container">
+          <h2 className="title-3">Regional Presence</h2>
+
+          <div className="grid-item">
+            <div className="flex-wrap">
+              <div className="text-box">
+                <h3 className="title-4">United Arab Emirates</h3>
+                <ul>
+                  <li>Headquarters and primary market</li>
+                  <li>
+                    Major developments in Dubai including Deira Islands and Al
+                    Furjan
+                  </li>
+                  <li>
+                    Luxury residential projects including Pearl Tower Gulf
+                  </li>
+                  <li>Hospitality ventures across prime locations</li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex-wrap">
+              <div className="text-box">
+                <h3 className="title-4">Sultanate of Oman</h3>
+                <ul>
+                  <li>
+                    Significant commercial developments including Gold Center in
+                    Salalah
+                  </li>
+                  <li>Residential projects such as Mabela Avenue in Muscat</li>
+                  <li>Hospitality management operations</li>
+                  <li>Logistics and exhibition services</li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex-wrap">
+              <div className="text-box">
+                <h3 className="title-4">Lebanon</h3>
+                <ul>
+                  <li>Premium mountain residential developments</li>
+                  <li>Bhamdoun Village 2892 project</li>
+                  <li>Investment in tourism-oriented properties</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

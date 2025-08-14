@@ -35,6 +35,7 @@ export default function Header() {
             <Link href="/">Home</Link>
             <Link href="/projects">Projects</Link>
             <Link href="/about">About</Link>
+            <Link href="/why-choose-us"> Why Choose Us</Link>
             <Link href="/blog">Blog</Link>
             <Link href="/faq">FAQ</Link>
             <Link href="/contact" className="btn-sm">
@@ -84,6 +85,9 @@ export default function Header() {
               </Link>
               <Link href="/about" onClick={() => setMenuOpen(false)}>
                 About
+              </Link>
+              <Link href="/why-choose-us" onClick={() => setMenuOpen(false)}>
+                Why Choose Us
               </Link>
               <Link href="/blog" onClick={() => setMenuOpen(false)}>
                 Blog
