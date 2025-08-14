@@ -19,19 +19,19 @@ export default function Home() {
     features: [
       {
         title: "Excellence",
-        text: "We are committed to delivering the highest quality in every project, exceeding expectations.",
+        text: "We are committed to delivering the highest quality in every project, exceeding expectations and setting new standards in the industry.",
       },
       {
         title: "Innovation",
-        text: "We embrace the latest technologies and trends to stay ahead in the construction world.",
+        text: "We embrace creativity and advanced technologies to stay ahead of market trends, constantly seeking new solutions to complex challenges.",
       },
       {
         title: "Integrity",
-        text: "Honesty and transparency are at the core of everything we do.",
+        text: "We uphold transparency and ethical practices in all business operations, building trust with clients, partners, and communities.",
       },
       {
         title: "Sustainability",
-        text: "Eco-friendly practices guide our every project.",
+        text: "We ensure our developments contribute positively to the environment and community, creating lasting value for generations to come.",
       },
     ],
   };

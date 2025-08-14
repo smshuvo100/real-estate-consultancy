@@ -1881,6 +1881,26 @@ section.faq-small {
     display: flex;
     flex-direction: column-reverse;
   }
+  body section.business-diversification .diversification-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+  body section.business-diversification.left .diversification-grid {
+    flex-direction: column-reverse;
+    display: flex;
+    gap: 20px;
+  }
+  body section.business-diversification {
+    margin-bottom: 40px;
+  }
+  body .margin-bottom {
+    margin-bottom: 0px;
+  }
+  body section.our-approach .grid-item {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+  }
 }
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -1888,4 +1908,54 @@ section.faq-small {
     display: flex;
     flex-direction: column-reverse;
   }
+  body section.business-diversification .diversification-grid {
+    gap: 20px;
+  }
+  body section.business-diversification {
+    margin-bottom: 50px;
+  }
+  body .margin-bottom {
+    margin-bottom: 0px;
+  }
+}
+
+section.business-diversification .diversification-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  align-items: center;
+}
+
+section.business-diversification .diversification-grid ul {
+  margin-left: 20px;
+}
+
+section.our-services ul li div {
+  font-size: 20px;
+  line-height: 30px;
+  margin-bottom: 5px;
+}
+section.our-services ul {
+  margin-left: 18px;
+}
+section.our-services ul li {
+  margin-bottom: 22px;
+}
+section.business-diversification .diversification-grid .title-4 {
+  margin-bottom: 20px;
+}
+.margin-bottom {
+  margin-bottom: 100px;
+}
+
+section.our-approach .grid-item {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+section.our-approach .grid-item h3.title-4 {
+  margin-bottom: 15px;
 }
