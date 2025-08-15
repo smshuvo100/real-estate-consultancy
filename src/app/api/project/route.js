@@ -2,18 +2,16 @@
 import { connectToDB } from "@/lib/db";
 import Project from "@/models/Project";
 
-// 🛠️ Utility: Generate slug from title
+// slug util
 const generateSlug = (title) =>
   title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    ?.toLowerCase()
+    ?.replace(/[^a-z0-9]+/g, "-")
+    ?.replace(/^-+|-+$/g, "");
 
-// ✅ GET: Fetch All or Single Project by slug
 export async function GET(req) {
   try {
     await connectToDB();
-
     const { searchParams } = new URL(req.url);
     const slug = searchParams.get("slug");
     const page = parseInt(searchParams.get("page") || "1");
@@ -34,9 +32,7 @@ export async function GET(req) {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-
     const total = await Project.countDocuments();
-
     return Response.json({ projects, total });
   } catch (err) {
     return new Response(JSON.stringify({ error: "Failed to fetch projects" }), {
@@ -45,19 +41,12 @@ export async function GET(req) {
   }
 }
 
-// ✅ POST a new project
 export async function POST(req) {
   try {
     await connectToDB();
     const body = await req.json();
-
-    if (!body.slug && body.title) {
-      body.slug = generateSlug(body.title);
-    }
-
-    // body.amenities should be array of Amenity ObjectIds (strings)
-    const newProject = new Project(body);
-    const saved = await newProject.save();
+    if (!body.slug && body.title) body.slug = generateSlug(body.title);
+    const saved = await new Project(body).save();
     return Response.json(saved);
   } catch (err) {
     console.error("❌ POST /api/project failed:", err);
@@ -67,26 +56,19 @@ export async function POST(req) {
   }
 }
 
-// ✅ PUT (update project by ID)
 export async function PUT(req) {
   try {
     await connectToDB();
     const body = await req.json();
-
-    if (!body._id) {
+    if (!body?._id) {
       return new Response(JSON.stringify({ error: "Missing _id" }), {
         status: 400,
       });
     }
-
-    if (!body.slug && body.title) {
-      body.slug = generateSlug(body.title);
-    }
-
+    if (!body.slug && body.title) body.slug = generateSlug(body.title);
     const updated = await Project.findByIdAndUpdate(body._id, body, {
       new: true,
     });
-
     return Response.json(updated);
   } catch (err) {
     console.error("❌ PUT /api/project failed:", err);
@@ -96,14 +78,11 @@ export async function PUT(req) {
   }
 }
 
-// ✅ DELETE (delete project by ID)
 export async function DELETE(req) {
   try {
     await connectToDB();
     const body = await req.json();
-
     await Project.findByIdAndDelete(body.id);
-
     return new Response(
       JSON.stringify({ message: "Project deleted successfully" }),
       { status: 200 }
@@ -116,39 +95,29 @@ export async function DELETE(req) {
   }
 }
 
-// ✅ DUPLICATE (duplicate a project by ID)
 export async function PATCH(req) {
   try {
     await connectToDB();
     const { duplicateId } = await req.json();
-
-    if (!duplicateId) {
+    if (!duplicateId)
       return new Response(JSON.stringify({ error: "Missing ID" }), {
         status: 400,
       });
-    }
 
     const original = await Project.findById(duplicateId);
-    if (!original) {
+    if (!original)
       return new Response(JSON.stringify({ error: "Project not found" }), {
         status: 404,
       });
-    }
 
     const { _id, createdAt, updatedAt, slug, title, ...cloneData } =
       original.toObject();
-
     const newTitle = `${title} (Copy)`;
-    const newSlug = newTitle
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-
+    const newSlug = generateSlug(newTitle);
     cloneData.title = newTitle;
     cloneData.slug = newSlug;
 
     const newProject = await Project.create(cloneData);
-
     return new Response(JSON.stringify(newProject), { status: 201 });
   } catch (err) {
     console.error("❌ DUPLICATE /api/project failed:", err);

@@ -5,43 +5,117 @@ import mongoose from "mongoose";
 const ProjectSchema = new mongoose.Schema(
   {
     // 🟩 Basic Info
-    title: { type: String, required: true }, // 1: Title
-    slug: { type: String, unique: true }, // ✅ Unique slug
-    description: { type: String, required: true }, // 2: Description
+    title: { type: String, required: true }, // Title
+    slug: { type: String, unique: true }, // Unique slug
+    description: { type: String, required: true },
 
-    // Set Featured Project
+    // ⭐ Featured
     isFeatured: { type: Boolean, default: false },
 
     // 🖼️ Images
-    featuredImages: [String], // 3: Featured Images
-    sidebarImages: [String], // 4: Sidebar 2 Images
+    featuredImages: [String],
+    sidebarImages: [String],
 
-    // 💰 Property Details
-    price: String, // 5: Price
-    bedrooms: String, // 6: Bedrooms
-    bathrooms: String, // 7: Bathrooms
-    sqft: String, // 8: Sq Ft
-    propertyArea: String, // 9: Property Area
-    propertyType: String, // 10: Property Type
+    // ✅ Pricing Structure
+    priceStarting: String,
+    priceMaximum: String,
+    priceDisplayType: String, // "Starting from" | "Price Range" | "On Request"
+    serviceChargePerSqFt: String,
+    bookingAmount: String,
+    registrationFee: String,
 
-    // ❌ Removed old boolean features: elevator, laundryFacility, walkInCloset, firePlace, balcony, garage
+    // ✅ Unit Fields
+    bedroomConfig: [String], // ["Studio","1BR","2BR","3BR","4BR","5BR+","Penthouse"]
+    bathroomConfig: [String], // ["1BA","2BA","3BA","4BA","5BA+"]
+    sqftStarting: String,
+    sqftMaximum: String,
 
-    // ✅ New: Amenity references
+    // ✅ Project Status & Timeline
+    projectStatus: String, // "Active Sales" | "Under Construction" | ...
+    completionDate: Date,
+    launchDate: Date,
+    expectedCompletion: String, // "Ready Now" | "Q1 2025" | ... | "TBD"
+
+    // ✅ Property Details
+    propertyType: String,
+    totalUnits: String,
+    availableUnits: String,
+    unitsSold: String,
+    buildingFloors: String,
+    builtYear: String,
+    plotSize: String,
+    builtUpArea: String,
+    carpetArea: String,
+    ceilingHeight: String,
+    parkingSpacesPerUnit: String,
+
+    // ✅ Location Enhancement
+    propertyArea: String,
+    emirateCountry: String,
+    areaDistrict: String,
+    subArea: String,
+    nearbyLandmarks: String,
+    distanceAirport: String,
+    distanceMetro: String,
+    distanceBeach: String,
+
+    // ✅ Amenities (reference)
     amenities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Amenity" }],
 
-    // 🟦 Navigation Section (17–18)
-    address: String, // 17: Address
-    mapIframe: String, // 18: Google Map iFrame
+    // ✅ Navigation
+    address: String,
+    mapIframe: String,
 
-    // 🟪 Gallery Section (19)
-    gallery: [String], // 19: Gallery
+    // ✅ Gallery
+    gallery: [String],
 
-    // 🟥 Floorplans Section (20–24)
-    unit: String, // 20: Unit (e.g. 1 BEDROOM + 1 SUITE + 1 BALCONY)
-    suite: String, // 21: Suite (e.g. 479.10 SQ.FT.)
-    balconySize: String, // 22: Balcony (e.g. 89.23 - 89.45 SQ.FT.)
-    total: String, // 23: Total (e.g. 568.33 - 568.55 SQ.FT.)
-    image: String, // 24: Floorplan image
+    // ✅ Investment Information
+    expectedROI: String,
+    rentalYield: String,
+    capitalAppreciation: String,
+    mortgageAvailable: { type: Boolean, default: false }, // radio (Yes/No in UI)
+    bankFinancingPercentage: String,
+    suitableFor: [String], // ["End User","Investment","Both"]
+    targetAudience: [String], // ["First Time Buyer","Luxury Buyer",...]
+
+    // ✅ Payment & Legal
+    paymentPlanType: String, // "Cash","10/90","20/80","30/70","50/50","Construction Linked","Post Handover","Flexible","Bank Financing","Custom"
+    paymentPlanDetails: String, // textarea
+    downPaymentPercentage: String,
+    titleDeedType: String, // "Freehold", "Leasehold 99 years", "Leasehold 50 years", "Usufruct"
+    ownershipEligibility: String, // "UAE Nationals Only","GCC Nationals","All Foreigners","Restricted"
+    reraRegistrationNumber: String,
+    escrowAccount: { type: Boolean, default: false }, // radio (Yes/No in UI)
+    nocStatus: String, // "Approved","Pending","Not Required"
+
+    // ✅ Extra Media (arrays)
+    masterPlanImages: [String],
+    elevationViews: [String],
+    interiorDesignImages: [String],
+    amenitiesImages: [String],
+    locationMapImages: [String],
+    progressPhotos: [String],
+    virtualTourImages: [String],
+
+    // ✅ Documents (single file URLs)
+    projectBrochure: String,
+    floorPlansPdf: String,
+    paymentPlanPdf: String,
+    masterPlanPdf: String,
+    nocDocuments: String,
+    reraCertificate: String,
+
+    // ✅ Videos (NEW)
+    promotionalVideo: String, // iframe/text
+    virtualTourVideo: String, // iframe/text
+    droneFootage: String, // iframe/text
+
+    // 🟥 Floorplans (existing section)
+    unit: String,
+    suite: String,
+    balconySize: String,
+    total: String,
+    image: String, // floorplan image
   },
   { timestamps: true }
 );
