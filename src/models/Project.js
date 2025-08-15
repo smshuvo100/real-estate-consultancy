@@ -24,13 +24,10 @@ const ProjectSchema = new mongoose.Schema(
     propertyArea: String, // 9: Property Area
     propertyType: String, // 10: Property Type
 
-    // 🟨 Features Section (11–16)
-    elevator: Boolean, // 11: Elevator
-    laundryFacility: Boolean, // 12: Laundry Facility
-    walkInCloset: Boolean, // 13: Walk in Closet
-    firePlace: Boolean, // 14: Fire place
-    balcony: Boolean, // 15: Balcony
-    garage: Boolean, // 16: Garage
+    // ❌ Removed old boolean features: elevator, laundryFacility, walkInCloset, firePlace, balcony, garage
+
+    // ✅ New: Amenity references
+    amenities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Amenity" }],
 
     // 🟦 Navigation Section (17–18)
     address: String, // 17: Address

@@ -1,4 +1,4 @@
-// ✅ /src/app/api/project/route.js
+// src/app/api/project/route.js
 import { connectToDB } from "@/lib/db";
 import Project from "@/models/Project";
 
@@ -21,7 +21,7 @@ export async function GET(req) {
     const skip = (page - 1) * limit;
 
     if (slug) {
-      const project = await Project.findOne({ slug });
+      const project = await Project.findOne({ slug }).populate("amenities");
       if (!project) {
         return new Response(JSON.stringify({ error: "Project not found" }), {
           status: 404,
@@ -55,6 +55,7 @@ export async function POST(req) {
       body.slug = generateSlug(body.title);
     }
 
+    // body.amenities should be array of Amenity ObjectIds (strings)
     const newProject = new Project(body);
     const saved = await newProject.save();
     return Response.json(saved);
@@ -71,6 +72,12 @@ export async function PUT(req) {
   try {
     await connectToDB();
     const body = await req.json();
+
+    if (!body._id) {
+      return new Response(JSON.stringify({ error: "Missing _id" }), {
+        status: 400,
+      });
+    }
 
     if (!body.slug && body.title) {
       body.slug = generateSlug(body.title);
@@ -99,9 +106,7 @@ export async function DELETE(req) {
 
     return new Response(
       JSON.stringify({ message: "Project deleted successfully" }),
-      {
-        status: 200,
-      }
+      { status: 200 }
     );
   } catch (err) {
     console.error("❌ DELETE /api/project failed:", err);
@@ -130,10 +135,17 @@ export async function PATCH(req) {
       });
     }
 
-    const { _id, createdAt, updatedAt, slug, ...cloneData } =
+    const { _id, createdAt, updatedAt, slug, title, ...cloneData } =
       original.toObject();
-    cloneData.title = `${cloneData.title} (Copy)`;
-    cloneData.slug = generateSlug(cloneData.title);
+
+    const newTitle = `${title} (Copy)`;
+    const newSlug = newTitle
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    cloneData.title = newTitle;
+    cloneData.slug = newSlug;
 
     const newProject = await Project.create(cloneData);
 

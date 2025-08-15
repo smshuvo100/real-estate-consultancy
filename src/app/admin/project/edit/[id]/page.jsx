@@ -14,28 +14,33 @@ export default function EditProjectPage() {
   const { id } = useParams();
 
   const [form, setForm] = useState(null);
+  const [amenities, setAmenities] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAll = async () => {
+      // Load amenities
+      const aRes = await fetch("/api/amenity");
+      const aData = await aRes.json();
+      const activeAmenities = (aData.amenities || []).filter((a) => a.isActive);
+      setAmenities(activeAmenities);
+
+      // Load projects list and match by id (as your original approach)
       const res = await fetch("/api/project");
       const data = await res.json();
-      const project = data.projects.find((p) => p._id === id);
+      const project = (data.projects || []).find((p) => p._id === id);
       if (project) {
         setForm({
           ...project,
-          isFeatured: !!project.isFeatured, // ✅ Add this line
-          elevator: !!project.elevator,
-          laundryFacility: !!project.laundryFacility,
-          walkInCloset: !!project.walkInCloset,
-          firePlace: !!project.firePlace,
-          balcony: !!project.balcony,
-          garage: !!project.garage,
+          // ensure amenities array exists
+          amenities: Array.isArray(project.amenities)
+            ? project.amenities.map(String)
+            : [],
         });
       } else {
         alert("Project not found");
       }
     };
-    fetchData();
+    fetchAll();
   }, [id]);
 
   const handleInputChange = (e) => {
@@ -44,6 +49,16 @@ export default function EditProjectPage() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+  const toggleAmenity = (amenityId) => {
+    setForm((prev) => {
+      const exists = prev.amenities.includes(amenityId);
+      const next = exists
+        ? prev.amenities.filter((x) => x !== amenityId)
+        : [...prev.amenities, amenityId];
+      return { ...prev, amenities: next };
+    });
   };
 
   const removeImage = (key, url) => {
@@ -109,20 +124,21 @@ export default function EditProjectPage() {
           onChange={(v) => setForm((prev) => ({ ...prev, description: v }))}
         />
 
-        {/* ✅ Set Featured Project checkbox */}
+        {/* Featured */}
         <div className="ad-label-flex sm">
           <div className="ad-label-group">
             <input
               type="checkbox"
               id="isFeatured"
               name="isFeatured"
-              checked={form.isFeatured}
+              checked={!!form.isFeatured}
               onChange={handleInputChange}
             />
             <label htmlFor="isFeatured">Set Featured Project</label>
           </div>
         </div>
 
+        {/* Property */}
         <input
           name="price"
           value={form.price}
@@ -160,29 +176,25 @@ export default function EditProjectPage() {
           className="input"
         />
 
-        <h2>Features</h2>
+        {/* ✅ Amenities Checklist */}
+        <h2>Amenities</h2>
         <div className="ad-label-flex">
-          {[
-            "elevator",
-            "laundryFacility",
-            "walkInCloset",
-            "firePlace",
-            "balcony",
-            "garage",
-          ].map((key) => (
-            <div className="ad-label-group sm" key={key}>
+          {amenities.map((a) => (
+            <div className="ad-label-group sm" key={a._id}>
               <input
+                id={a._id}
                 type="checkbox"
-                id={key} // ✅ set id
-                name={key}
-                checked={form[key]}
-                onChange={handleInputChange}
+                checked={form.amenities.includes(a._id)}
+                onChange={() => toggleAmenity(a._id)}
               />
-              <label htmlFor={key}>{key.replace(/([A-Z])/g, " $1")}</label>
+              <label htmlFor={a._id} key={a._id}>
+                {a.name}
+              </label>
             </div>
           ))}
         </div>
 
+        {/* Address + Map */}
         <input
           name="address"
           value={form.address}
@@ -196,6 +208,7 @@ export default function EditProjectPage() {
           className="input"
         />
 
+        {/* Images */}
         {["featuredImages", "sidebarImages", "gallery"].map((key) => (
           <div className="ad-label-group" key={key}>
             <label>Upload {key}</label>
@@ -233,6 +246,7 @@ export default function EditProjectPage() {
           </div>
         ))}
 
+        {/* Floorplan */}
         <h2>Floorplan Info</h2>
         <input
           name="unit"

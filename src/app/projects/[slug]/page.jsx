@@ -5,18 +5,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Slider from "react-slick";
-import {
-  FaArrowAltCircleUp,
-  FaBath,
-  FaBuilding,
-  FaDoorOpen,
-  FaFire,
-  FaHome,
-  FaMapMarkerAlt,
-  FaWindowMaximize,
-} from "react-icons/fa";
-import { GiFlowerPot, GiWashingMachine } from "react-icons/gi";
+import { FaBath, FaBuilding, FaHome, FaMapMarkerAlt } from "react-icons/fa";
 import { LuRuler } from "react-icons/lu";
+import { FiCheckCircle } from "react-icons/fi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import FaqSmall from "@/app/components/FaqSmall";
@@ -51,16 +42,16 @@ export default function SingleProjectPage() {
         breakpoint: 1024,
         settings: {
           centerMode: true,
-          slidesToShow: 1, // ✅ REQUIRED!
-          centerPadding: "50px", // or adjust for tablet
+          slidesToShow: 1,
+          centerPadding: "50px",
         },
       },
       {
         breakpoint: 768,
         settings: {
           centerMode: true,
-          slidesToShow: 1, // ✅ REQUIRED!
-          centerPadding: "50px", // adjust for mobile
+          slidesToShow: 1,
+          centerPadding: "50px",
         },
       },
     ],
@@ -186,59 +177,34 @@ export default function SingleProjectPage() {
         </div>
       </section>
 
+      {/* ✅ New Amenities block (using populated project.amenities) */}
       <section className="property-features">
         <div className="container">
-          <h2 className="title-4">Features</h2>
-          <ul className="property-features-list">
-            {project.elevator && (
-              <li>
-                <span className="icon">
-                  <FaArrowAltCircleUp />
-                </span>
-                <span className="tect">Elevator</span>
-              </li>
-            )}
-            {project.laundryFacility && (
-              <li>
-                <span className="icon">
-                  <GiWashingMachine />
-                </span>
-                <span className="tect">Laundry Facilities</span>
-              </li>
-            )}
-            {project.walkInCloset && (
-              <li>
-                <span className="icon">
-                  <FaDoorOpen />
-                </span>
-                <span className="tect">Walk In Closet</span>
-              </li>
-            )}
-            {project.firePlace && (
-              <li>
-                <span className="icon">
-                  <FaFire />
-                </span>
-                <span className="tect">Fire Place</span>
-              </li>
-            )}
-            {project.balcony && (
-              <li>
-                <span className="icon">
-                  <FaWindowMaximize />
-                </span>
-                <span className="tect">Balcony</span>
-              </li>
-            )}
-            {project.garage && (
-              <li>
-                <span className="icon">
-                  <GiFlowerPot />
-                </span>
-                <span className="tect">Garage</span>
-              </li>
-            )}
-          </ul>
+          <h2 className="title-4">Amenities</h2>
+
+          {Array.isArray(project.amenities) && project.amenities.length > 0 ? (
+            <ul className="property-features-list">
+              {project.amenities.map((am) => (
+                <li key={am._id || am.id || am.name}>
+                  <span className="icon">
+                    {am.image ? (
+                      <Image
+                        src={am.image}
+                        width={28}
+                        height={28}
+                        alt={am.name}
+                      />
+                    ) : (
+                      <FiCheckCircle />
+                    )}
+                  </span>
+                  <span className="tect">{am.name}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p style={{ opacity: 0.8 }}>No amenities listed.</p>
+          )}
         </div>
       </section>
 

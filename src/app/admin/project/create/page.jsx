@@ -1,7 +1,7 @@
 // ✅ src/app/admin/project/create/page.jsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -12,11 +12,13 @@ import "react-quill-new/dist/quill.snow.css";
 export default function CreateProjectPage() {
   const router = useRouter();
 
+  const [amenities, setAmenities] = useState([]);
+
   const [form, setForm] = useState({
     title: "",
     slug: "",
     description: "",
-    isFeatured: false, // ✅ NEW FIELD
+    isFeatured: false,
     featuredImages: [],
     sidebarImages: [],
     price: "",
@@ -25,12 +27,8 @@ export default function CreateProjectPage() {
     sqft: "",
     propertyArea: "",
     propertyType: "",
-    elevator: false,
-    laundryFacility: false,
-    walkInCloset: false,
-    firePlace: false,
-    balcony: false,
-    garage: false,
+    // ✅ new field for selected amenities
+    amenities: [],
     address: "",
     mapIframe: "",
     gallery: [],
@@ -41,9 +39,28 @@ export default function CreateProjectPage() {
     image: "",
   });
 
+  useEffect(() => {
+    const loadAmenities = async () => {
+      const res = await fetch("/api/amenity");
+      const data = await res.json();
+      setAmenities((data.amenities || []).filter((a) => a.isActive));
+    };
+    loadAmenities();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+  };
+
+  const toggleAmenity = (id) => {
+    setForm((prev) => {
+      const exists = prev.amenities.includes(id);
+      const next = exists
+        ? prev.amenities.filter((x) => x !== id)
+        : [...prev.amenities, id];
+      return { ...prev, amenities: next };
+    });
   };
 
   const handleImageUpload = async (e, key, single = false) => {
@@ -100,7 +117,7 @@ export default function CreateProjectPage() {
           onChange={(v) => setForm({ ...form, description: v })}
         />
 
-        {/* ✅ Set Featured Project checkbox */}
+        {/* Featured */}
         <div className="ad-label-flex sm">
           <div className="ad-label-group">
             <input
@@ -113,6 +130,8 @@ export default function CreateProjectPage() {
             <label htmlFor="isFeatured">Set Featured Project</label>
           </div>
         </div>
+
+        {/* Property fields */}
         <input
           name="price"
           placeholder="Price"
@@ -156,31 +175,25 @@ export default function CreateProjectPage() {
           className="input"
         />
 
-        <h2>Features</h2>
+        {/* ✅ Amenities Checklist */}
+        <h2>Amenities</h2>
         <div className="ad-label-flex">
-          {[
-            "elevator",
-            "laundryFacility",
-            "walkInCloset",
-            "firePlace",
-            "balcony",
-            "garage",
-          ].map((feature) => (
-            <div className="ad-label-group sm" key={feature}>
+          {amenities.map((a) => (
+            <div className="ad-label-group sm" key={a._id}>
               <input
+                id={a._id}
                 type="checkbox"
-                id={feature}
-                name={feature}
-                checked={form[feature]}
-                onChange={handleInputChange}
+                checked={form.amenities.includes(a._id)}
+                onChange={() => toggleAmenity(a._id)}
               />
-              <label htmlFor={feature}>
-                {feature.replace(/([A-Z])/g, " $1")}
+              <label htmlFor={a._id} key={a._id}>
+                {a.name}
               </label>
             </div>
           ))}
         </div>
 
+        {/* Address + Map */}
         <input
           name="address"
           placeholder="Address"
@@ -197,6 +210,7 @@ export default function CreateProjectPage() {
           className="input"
         />
 
+        {/* Images */}
         {["featuredImages", "sidebarImages", "gallery"].map((key) => (
           <div className="ad-label-group" key={key}>
             <label>Upload {key}</label>
@@ -215,6 +229,7 @@ export default function CreateProjectPage() {
           </div>
         ))}
 
+        {/* Floorplan */}
         <h2>Floorplan Info</h2>
         <input
           name="unit"

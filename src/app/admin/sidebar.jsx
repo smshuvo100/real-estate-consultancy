@@ -61,10 +61,31 @@ export default function Sidebar({ isOpen, toggle, close }) {
               <FiFileText /> <span>Blog</span>
             </Link>
           </li>
-          <li>
-            <Link href="/admin/project">
-              <FaBuilding /> <span>Project</span>
-            </Link>
+
+          {/* ✅ project Submenu */}
+          <li className={openDropdown === "project" ? "open" : ""}>
+            <div
+              className="menu-item-with-toggle"
+              onClick={() => toggleDropdown("project")}
+            >
+              <span>
+                <FaBuilding /> Project
+              </span>
+              <button className="submenu-toggle">
+                {openDropdown === "project" ? <FiMinus /> : <FiPlus />}
+              </button>
+            </div>
+            <ul
+              className="sub-menu"
+              style={{ display: openDropdown === "project" ? "block" : "none" }}
+            >
+              <li>
+                <Link href="/admin/project">ALL Projects</Link>
+              </li>
+              <li>
+                <Link href="/admin/amenities">Add Amenities</Link>
+              </li>
+            </ul>
           </li>
 
           {/* ✅ About Submenu */}
