@@ -1,8 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+// 🔎 ছোট হুক: ডিভাইস hover সাপোর্ট করে কিনা
+function useCanHover() {
+  const [canHover, setCanHover] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setCanHover(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+  return canHover;
+}
+
 export function OurServices1() {
+  const canHover = useCanHover(); // ডেস্কটপে true, মোবাইল/ট্যাবে false
+
   // --- Entrance (once) ---
   const headerVariants = {
     hidden: { opacity: 0, y: -40 },
@@ -13,7 +28,7 @@ export function OurServices1() {
     show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  // --- Hover states ---
+  // --- Hover / Active (tap) states ---
   const bgVariants = {
     rest: {
       border: "0px solid rgba(255,255,255,0)",
@@ -26,7 +41,7 @@ export function OurServices1() {
       transition: { duration: 0.3 },
     },
     active: {
-      borderColor: "rgba(255,255,255,0.9)",
+      border: "2px solid rgba(255,255,255,0.9)",
       scale: 1.01,
       transition: { duration: 0.3 },
     },
@@ -44,19 +59,36 @@ export function OurServices1() {
       marginTop: 0,
       transition: { duration: 0.3 },
     },
-    hover: {
-      opacity: 1,
-      y: 0,
-      height: "auto",
-      transition: { duration: 0.3 },
-    },
-    active: {
-      opacity: 1,
-      y: 0,
-      height: "auto",
-      transition: { duration: 0.3 },
-    },
+    hover: { opacity: 1, y: 0, height: "auto", transition: { duration: 0.3 } },
+    active: { opacity: 1, y: 0, height: "auto", transition: { duration: 0.3 } },
   };
+
+  // মোবাইল/ট্যাব টগল স্টেট (ডেস্কটপে এগুলো ব্যবহার হবে না)
+  const [a1, setA1] = useState(false);
+  const [a2, setA2] = useState(false);
+  const [a3, setA3] = useState(false);
+  const [a4, setA4] = useState(false);
+  const [a5, setA5] = useState(false);
+  const [a6, setA6] = useState(false);
+
+  // ডেস্কটপে accidental focus/click এ টগল আটকাতে: canHover হলে হ্যান্ডলার বাদ
+  const tapProps = (active, setActive) =>
+    canHover
+      ? {
+          /* desktop: no click/tap toggle */
+        }
+      : {
+          onClick: () => setActive((v) => !v),
+          onKeyDown: (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setActive((v) => !v);
+            }
+          },
+          role: "button",
+          tabIndex: 0,
+          animate: active ? "active" : "rest",
+        };
 
   return (
     <motion.section
@@ -83,6 +115,7 @@ export function OurServices1() {
             variants={cardEnter}
             initial="rest"
             whileHover="hover"
+            {...tapProps(a1, setA1)}
           >
             <motion.div
               className="bg-image"
@@ -117,6 +150,7 @@ export function OurServices1() {
             variants={cardEnter}
             initial="rest"
             whileHover="hover"
+            {...tapProps(a2, setA2)}
           >
             <motion.div
               className="bg-image"
@@ -144,6 +178,7 @@ export function OurServices1() {
             variants={cardEnter}
             initial="rest"
             whileHover="hover"
+            {...tapProps(a3, setA3)}
           >
             <motion.div
               className="bg-image"
@@ -174,6 +209,7 @@ export function OurServices1() {
             variants={cardEnter}
             initial="rest"
             whileHover="hover"
+            {...tapProps(a4, setA4)}
           >
             <motion.div
               className="bg-image"
@@ -201,6 +237,7 @@ export function OurServices1() {
             variants={cardEnter}
             initial="rest"
             whileHover="hover"
+            {...tapProps(a5, setA5)}
           >
             <motion.div
               className="bg-image"
@@ -232,6 +269,7 @@ export function OurServices1() {
             variants={cardEnter}
             initial="rest"
             whileHover="hover"
+            {...tapProps(a6, setA6)}
           >
             <motion.div
               className="bg-image"
