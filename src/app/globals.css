@@ -288,24 +288,61 @@ section.hero .grid2 {
 /* ---------------------
   Our Services
 --------------------- */
+section.our-services .flex-box {
+  display: flex;
+  gap: 50px;
+}
+section.our-services .flex-box .sm-coll {
+  width: 33.33%;
+}
 
-section.our-services .grid {
+section.our-services .flex-box .sm-coll.sm1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+section.our-services .flex-box .sm-coll.sm3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.round-box-sec {
+  position: relative;
+  width: 350px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.round-box-sec .text-box {
+  text-align: center;
+  max-width: 210px;
+}
+.round-box-sec .img-box {
+  position: absolute;
+}
+.round-box-sec .text-box p {
+  margin-top: 20px;
+}
+
+/* section.our-services .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
-}
-section.our-services .grid .icon {
+} */
+/* section.our-services .grid .icon {
   text-align: right;
   margin-bottom: -10px;
-}
+} */
 
 section.our-services h2.title-5 {
   margin-bottom: 20px;
 }
 
-section.our-services .grid .s-ion {
+/* section.our-services .grid .s-ion {
   margin-bottom: 10px;
-}
+} */
 
 section.our-services .title-4 {
   margin-bottom: 50px;
@@ -317,21 +354,44 @@ section.our-services {
 }
 /* Mobile */
 @media (max-width: 767px) {
-  body section.our-services .grid {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 50px;
-    display: grid;
+  body section.our-services .flex-box {
+    display: block;
+  }
+  body section.our-services .flex-box .sm-coll {
+    width: 100%;
+  }
+  body .round-box-sec {
+    width: 100%;
+  }
+  body .round-box-sec .text-box p {
+    font-size: 14px;
   }
 }
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
-  body section.our-services .grid {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 30px;
+  body .round-box-sec {
+    width: 100%;
+  }
+  body section.our-services .flex-box {
+    display: block;
+  }
+  body section.our-services .flex-box .sm-coll {
+    width: 100%;
+  }
+  body .round-box-sec {
+    width: 100%;
   }
   body section.our-services .container {
-    max-width: 400px;
+    max-width: 500px;
   }
+
+  /* body section.our-services .grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+  } */
+  /* body section.our-services .container {
+    max-width: 400px;
+  } */
 
   body section.hero .grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1931,12 +1991,14 @@ section.business-diversification .diversification-grid ul {
 }
 
 section.our-services ul li div {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 30px;
   margin-bottom: 5px;
+  font-weight: bolder;
 }
 section.our-services ul {
-  margin-left: 18px;
+  /* margin-left: 18px; */
+  list-style: none;
 }
 section.our-services ul li {
   margin-bottom: 22px;
@@ -1977,4 +2039,133 @@ section.business-diversification.left.future {
 }
 section.business-diversification.left.future ul {
   margin-bottom: 20px;
+}
+
+/* ---------- Service Page ------------ */
+/* ---------- Service Page ------------ */
+section.our-services.sm-new .flex-box {
+  display: flex;
+  gap: 30px;
+}
+
+section.our-services.sm-new .flex-box .box {
+  flex: 1;
+  cursor: pointer; /* হোভার ইঙ্গিত */
+  outline: none;
+}
+
+section.our-services.sm-new .flex-box .box:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+}
+section.our-services.sm-new .flex-box.sm-spece {
+  margin-bottom: 20px;
+}
+section.our-services.sm-new .flex-box .text.sm1 {
+  margin-bottom: 55px;
+}
+
+section.our-services.sm-new .flex-box .box.sm1 {
+  margin-top: -50px;
+}
+
+section.our-services.sm-new .header h2 {
+  margin-bottom: 10px;
+}
+
+section.our-services.sm-new .header p {
+  text-align: center;
+}
+
+section.our-services.sm-new .header {
+  margin: 0 auto;
+  max-width: 700px;
+  padding-bottom: 100px;
+}
+
+section.our-services.sm-new .bg-image {
+  height: 412px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 20px 14px;
+  position: relative;
+}
+
+/* উপরের শিরোনাম যাতে ব্যাকগ্রাউন্ডে পড়লে পড়া যায় */
+section.our-services.sm-new .bg-image .title-5 {
+  color: #fff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+section.our-services.sm-new .text {
+  border-left: 2px solid;
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-top: 16px;
+  padding-bottom: 1px;
+  overflow: hidden; /* height animate হলে কন্টেন্ট ক্লিপিং */
+}
+section.our-services.sm-new .bg-image h2.title-5 {
+  margin-bottom: 0;
+}
+/* Overlay gradient for text readability */
+section.our-services.sm-new .bg-image {
+  position: relative; /* overlay বসাতে */
+  padding: 0 20px 18px; /* নিচে টেক্সটের breathing space */
+}
+
+section.our-services.sm-new .bg-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  /* নিচে ডার্ক, উপরে ক্লিয়ার */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.66) 0%,
+    rgba(0, 0, 0, 0.45) 38%,
+    rgba(0, 0, 0, 0.18) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.9; /* ডিফল্ট ইন্টেনসিটি */
+  transition: opacity 0.3s ease; /* হোভার/ফোকাসে স্মুথ */
+}
+
+/* Hover/keyboard focus-এ একটু বেশি কনট্রাস্ট */
+section.our-services.sm-new .box:hover .bg-image::before,
+section.our-services.sm-new .box:focus-visible .bg-image::before {
+  opacity: 1;
+}
+
+/* টাইটেলকে overlay-এর উপরে রাখতে */
+section.our-services.sm-new .bg-image .title-5 {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  margin-bottom: 0; /* তুমি আগেই রেখেছো, রেখেই দাও */
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  section.our-services.sm-new .flex-box {
+    flex-direction: column;
+  }
+  section.our-services.sm-new .flex-box .box.sm1 {
+    margin-top: 0;
+  }
+}
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  section.our-services.sm-new .flex-box {
+    flex-direction: column;
+  }
+  section.our-services.sm-new .flex-box .box.sm1 {
+    margin-top: 0;
+  }
 }

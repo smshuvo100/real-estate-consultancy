@@ -2,6 +2,7 @@ import Image from "next/image";
 import { RecentProjects } from "./components/RecentProjects";
 import { Hero } from "./components/Hero";
 import { OurServices } from "./components/OurServices";
+import { OurServices1 } from "./components/OurServices1";
 //import { Gallery } from "./components/Gallery";
 import { Fullimage } from "./components/Fullimage";
 import { About } from "./components/About";
@@ -63,6 +64,7 @@ export default function Home() {
 
       {/* our services ==== */}
       <OurServices />
+      <OurServices1 />
 
       {/* full image section == */}
       <Fullimage />

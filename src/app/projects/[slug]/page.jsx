@@ -275,7 +275,7 @@ export default function SingleProjectPage() {
           {Array.isArray(project.amenities) && project.amenities.length > 0 ? (
             <ul className="property-features-list">
               {project.amenities.map((am) => (
-                <li key={am._id || am.id || am.name}>
+                <li key={am.name}>
                   <span className="icon">
                     {am.image ? (
                       <Image

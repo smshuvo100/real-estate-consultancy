@@ -1,3 +1,4 @@
+// ✅ src/app/components/PropertyGrid.jsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -29,16 +30,26 @@ const ranges = {
 
 function NextArrow({ onClick }) {
   return (
-    <div className="custom-arrow custom-next" onClick={onClick}>
+    <button
+      type="button"
+      aria-label="Next"
+      className="custom-arrow custom-next"
+      onClick={onClick}
+    >
       <FaArrowRight />
-    </div>
+    </button>
   );
 }
 function PrevArrow({ onClick }) {
   return (
-    <div className="custom-arrow custom-prev" onClick={onClick}>
+    <button
+      type="button"
+      aria-label="Previous"
+      className="custom-arrow custom-prev"
+      onClick={onClick}
+    >
       <FaArrowLeft />
-    </div>
+    </button>
   );
 }
 
@@ -63,7 +74,7 @@ export function PropertyGrid() {
       .then((res) => res.json())
       .then((data) => {
         setAllProperties(data.projects || []);
-        setTotalPages(Math.ceil(data.total / limit));
+        setTotalPages(Math.ceil((data.total || 0) / limit) || 1);
         if (shouldScroll && topRef.current) {
           setTimeout(() => {
             topRef.current.scrollIntoView({ behavior: "smooth" });
@@ -76,7 +87,7 @@ export function PropertyGrid() {
         console.error("❌ Failed to fetch projects", err);
         setLoadingPage(false);
       });
-  }, [page]);
+  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -289,80 +300,98 @@ export function PropertyGrid() {
           </div>
 
           <div className="property-grid">
-            {filtered.map((property, index) => (
-              <motion.div
-                className="property-card"
-                key={property._id || index}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 1.2,
-                  ease: "easeOut",
-                  delay: index * 0.1,
-                }}
-                viewport={{ once: true }}
-              >
-                <div className="image-wrapper">
-                  <Slider {...sliderSettings}>
-                    {(property.gallery?.length
-                      ? property.gallery
-                      : ["/images/property-fallback.webp"]
-                    ).map((src, i) => (
-                      <div key={i}>
-                        <Image
-                          src={src}
-                          alt={`Gallery Image ${i + 1}`}
-                          width={600}
-                          height={400}
-                          layout="responsive"
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
-                <div className="property-info">
-                  <h4>{parseInt(property.price || 0).toLocaleString()} $</h4>
-                  <Link
-                    className="details-btn"
-                    href={`/projects/${property.slug}`}
-                  >
-                    View Details
-                  </Link>
-                </div>
-                <ul className="property-meta">
-                  <li>
-                    <span>
-                      <FaHome />
-                    </span>{" "}
-                    {property.bedrooms || "N/A"}
-                  </li>
-                  <li>
-                    <span>
-                      <FaBath />
-                    </span>{" "}
-                    {property.bathrooms || "N/A"}
-                  </li>
-                  <li>
-                    <span>
-                      <LuRuler />
-                    </span>{" "}
-                    {property.sqft || "N/A"}
-                  </li>
-                  <li>
-                    <span>
-                      <FaMapMarkerAlt />
-                    </span>{" "}
-                    {property.propertyArea || "N/A"}
-                  </li>
-                  <li>
-                    <span>
-                      <FaBuilding />
-                    </span>{" "}
-                    {property.propertyType || "N/A"}
-                  </li>
-                </ul>
-              </motion.div>
-            ))}
+            {filtered.map((property, index) => {
+              const images = property.gallery?.length
+                ? property.gallery
+                : ["/images/property-fallback.webp"];
+              const priceSafe = Number.parseInt(property.price || 0);
+              const priceText =
+                Number.isFinite(priceSafe) && priceSafe > 0
+                  ? `${priceSafe.toLocaleString()} $`
+                  : property.priceStarting || property.price || "—";
+              const slug = property.slug || "";
+
+              return (
+                <motion.div
+                  className="property-card"
+                  key={property._id || index}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 1.2,
+                    ease: "easeOut",
+                    delay: index * 0.1,
+                  }}
+                  viewport={{ once: true }}
+                >
+                  <div className="image-wrapper">
+                    <Slider {...sliderSettings}>
+                      {images.map((src, i) => (
+                        <div key={i}>
+                          <Image
+                            src={src}
+                            alt={`Gallery Image ${i + 1}`}
+                            width={600}
+                            height={400}
+                            // ✅ Next/Image modern usage (no layout prop)
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              display: "block",
+                            }}
+                            priority={i === 0}
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                  <div className="property-info">
+                    <h4>{priceText}</h4>
+                    {slug ? (
+                      <Link className="details-btn" href={`/projects/${slug}`}>
+                        View Details
+                      </Link>
+                    ) : (
+                      <span className="details-btn disabled" aria-disabled>
+                        View Details
+                      </span>
+                    )}
+                  </div>
+                  <ul className="property-meta">
+                    <li>
+                      <span>
+                        <FaHome />
+                      </span>{" "}
+                      {property.bedrooms || "N/A"}
+                    </li>
+                    <li>
+                      <span>
+                        <FaBath />
+                      </span>{" "}
+                      {property.bathrooms || "N/A"}
+                    </li>
+                    <li>
+                      <span>
+                        <LuRuler />
+                      </span>{" "}
+                      {property.sqft || "N/A"}
+                    </li>
+                    <li>
+                      <span>
+                        <FaMapMarkerAlt />
+                      </span>{" "}
+                      {property.propertyArea || "N/A"}
+                    </li>
+                    <li>
+                      <span>
+                        <FaBuilding />
+                      </span>{" "}
+                      {property.propertyType || "N/A"}
+                    </li>
+                  </ul>
+                </motion.div>
+              );
+            })}
           </div>
 
           <motion.div
