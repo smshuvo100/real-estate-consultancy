@@ -100,7 +100,8 @@ export function OurServices1() {
       <div className="container">
         {/* Header */}
         <motion.div className="header" variants={headerVariants}>
-          <h2 className="title-4 uppercase center">recent projects</h2>
+          {/* CORPORATE STRUCTURE */}
+          <h2 className="title-4 uppercase center">Corporate Structure</h2>
           <p>
             SFK Real Estate Consultancy operates as the flagship entity within a
             diversified group of companies that span multiple sectors:
@@ -158,15 +159,15 @@ export function OurServices1() {
               variants={bgVariants}
             >
               <motion.h2 className="title-5" variants={titleHover}>
-                Consumer Products
+                Retail & Commercial
               </motion.h2>
             </motion.div>
             <motion.div className="text sm1" variants={textHover}>
-              <h2 className="title-5">Consumer Products</h2>
+              <h2 className="title-5">Retail & Commercial</h2>
               <ul>
                 <li>
-                  <div>Al Mamlaka Perfumes</div>
-                  <p>Luxury fragrance line</p>
+                  <div>Gold Center and Jewelry Complex</div>
+                  <p>Specialized retail development</p>
                 </li>
               </ul>
             </motion.div>
@@ -186,15 +187,19 @@ export function OurServices1() {
               variants={bgVariants}
             >
               <motion.h2 className="title-5" variants={titleHover}>
-                Retail & Commercial
+                Exhibition & Marketing
               </motion.h2>
             </motion.div>
             <motion.div className="text" variants={textHover}>
-              <h2 className="title-5">Retail & Commercial</h2>
+              <h2 className="title-5">Exhibition & Marketing</h2>
               <ul>
                 <li>
-                  <div>Gold Center and Jewelry Complex</div>
-                  <p>Specialized retail development</p>
+                  <div>Al Mamlaka Organizing Exhibitions</div>
+                  <p>Event management and exhibition services</p>
+                </li>
+                <li>
+                  <div>Al Mamlaka Advertising</div>
+                  <p>Marketing and promotional services</p>
                 </li>
               </ul>
             </motion.div>
@@ -217,15 +222,15 @@ export function OurServices1() {
               variants={bgVariants}
             >
               <motion.h2 className="title-5" variants={titleHover}>
-                Hospitality & Tourism
+                Consumer Products
               </motion.h2>
             </motion.div>
             <motion.div className="text" variants={textHover}>
-              <h2 className="title-5">Hospitality & Tourism</h2>
+              <h2 className="title-5">Consumer Products</h2>
               <ul>
                 <li>
-                  <div>Al Mamlaka Hospitality</div>
-                  <p>Hotel and restaurant development and management</p>
+                  <div>Al Mamlaka Perfumes</div>
+                  <p>Luxury fragrance line</p>
                 </li>
               </ul>
             </motion.div>
@@ -245,19 +250,15 @@ export function OurServices1() {
               variants={bgVariants}
             >
               <motion.h2 className="title-5" variants={titleHover}>
-                Exhibition & Marketing
+                Hospitality & Tourism
               </motion.h2>
             </motion.div>
             <motion.div className="text" variants={textHover}>
-              <h2 className="title-5">Exhibition & Marketing</h2>
+              <h2 className="title-5">Hospitality & Tourism</h2>
               <ul>
                 <li>
-                  <div>Al Mamlaka Organizing Exhibitions</div>
-                  <p>Event management and exhibition services</p>
-                </li>
-                <li>
-                  <div>Al Mamlaka Advertising</div>
-                  <p>Marketing and promotional services</p>
+                  <div>Al Mamlaka Hospitality</div>
+                  <p>Hotel and restaurant development and management.</p>
                 </li>
               </ul>
             </motion.div>

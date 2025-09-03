@@ -63,7 +63,7 @@ export default function Home() {
       <RecentProjects />
 
       {/* our services ==== */}
-      <OurServices />
+      {/* <OurServices /> */}
       <OurServices1 />
 
       {/* full image section == */}
