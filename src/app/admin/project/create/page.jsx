@@ -316,28 +316,30 @@ export default function CreateProjectPage() {
         <h1>Create Project</h1>
         <form onSubmit={handleSubmit}>
           {/* ===== Basic ===== */}
-          <div className="ad-form-group">
-            <label htmlFor="title">Title</label>
-            <input
-              id="title"
-              name="title"
-              placeholder="Title"
-              value={form.title}
-              onChange={handleInputChange}
-              className="input"
-            />
-          </div>
+          <div className="form-grid-2">
+            <div className="ad-form-group">
+              <label htmlFor="title">Title</label>
+              <input
+                id="title"
+                name="title"
+                placeholder="Title"
+                value={form.title}
+                onChange={handleInputChange}
+                className="input"
+              />
+            </div>
 
-          <div className="ad-form-group">
-            <label htmlFor="slug">Slug (optional)</label>
-            <input
-              id="slug"
-              name="slug"
-              placeholder="Slug (optional)"
-              value={form.slug}
-              onChange={handleInputChange}
-              className="input"
-            />
+            <div className="ad-form-group">
+              <label htmlFor="slug">Slug (optional)</label>
+              <input
+                id="slug"
+                name="slug"
+                placeholder="Slug (optional)"
+                value={form.slug}
+                onChange={handleInputChange}
+                className="input"
+              />
+            </div>
           </div>
 
           <ReactQuill
@@ -362,7 +364,7 @@ export default function CreateProjectPage() {
 
           {/* ===== Pricing Structure ===== */}
           <h2>Pricing Structure</h2>
-          <div className="grid-2">
+          <div className="form-grid-3">
             <div className="ad-form-group">
               <label htmlFor="priceDisplayType">Price Display Type</label>
               <input
@@ -476,7 +478,7 @@ export default function CreateProjectPage() {
             ))}
           </div>
 
-          <div className="grid-2">
+          <div className="form-grid-2">
             <div className="ad-form-group">
               <label htmlFor="sqftStarting">Starting Size Sq ft</label>
               <input
@@ -504,7 +506,7 @@ export default function CreateProjectPage() {
 
           {/* ===== Project Status & Timeline ===== */}
           <h2>Project Status & Timeline</h2>
-          <div className="grid-2">
+          <div className="form-grid-2">
             <div className="ad-form-group">
               <label htmlFor="projectStatus">Status</label>
               <input
@@ -568,7 +570,7 @@ export default function CreateProjectPage() {
 
           {/* ===== Property Details ===== */}
           <h2>Property Details</h2>
-          <div className="grid-3">
+          <div className="form-grid-4">
             <div className="ad-form-group">
               <label htmlFor="propertyType">Property Type</label>
               <input
@@ -706,7 +708,7 @@ export default function CreateProjectPage() {
 
           {/* ===== Location Enhancement ===== */}
           <h2>Location Enhancement</h2>
-          <div className="grid-2">
+          <div className="form-grid-4">
             <div className="ad-form-group">
               <label htmlFor="propertyArea">Property Area</label>
               <input
@@ -828,7 +830,7 @@ export default function CreateProjectPage() {
 
           {/* ===== Investment Information ===== */}
           <h2>Investment Information</h2>
-          <div className="grid-3">
+          <div className="form-grid-4">
             <div className="ad-form-group">
               <label htmlFor="expectedROI">Expected ROI</label>
               <input
@@ -865,31 +867,6 @@ export default function CreateProjectPage() {
               />
             </div>
 
-            {/* Mortgage Available — radio Yes/No */}
-            <div className="ad-label-group">
-              <label className="block">Mortgage Available</label>
-              <div style={{ display: "flex", gap: 12 }}>
-                <label>
-                  <input
-                    type="radio"
-                    name="mortgageAvailableRadio"
-                    checked={form.mortgageAvailable === true}
-                    onChange={() => setRadioBoolean("mortgageAvailable", true)}
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="mortgageAvailableRadio"
-                    checked={form.mortgageAvailable === false}
-                    onChange={() => setRadioBoolean("mortgageAvailable", false)}
-                  />{" "}
-                  No
-                </label>
-              </div>
-            </div>
-
             <div className="ad-form-group">
               <label htmlFor="bankFinancingPercentage">Bank Financing %</label>
               <input
@@ -900,6 +877,30 @@ export default function CreateProjectPage() {
                 value={form.bankFinancingPercentage}
                 onChange={handleInputChange}
               />
+            </div>
+          </div>
+          {/* Mortgage Available — radio Yes/No */}
+          <div className="ad-label-group">
+            <label className="block">Mortgage Available</label>
+            <div style={{ display: "flex", gap: 12 }}>
+              <label>
+                <input
+                  type="radio"
+                  name="mortgageAvailableRadio"
+                  checked={form.mortgageAvailable === true}
+                  onChange={() => setRadioBoolean("mortgageAvailable", true)}
+                />{" "}
+                Yes
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="mortgageAvailableRadio"
+                  checked={form.mortgageAvailable === false}
+                  onChange={() => setRadioBoolean("mortgageAvailable", false)}
+                />{" "}
+                No
+              </label>
             </div>
           </div>
 
@@ -935,7 +936,7 @@ export default function CreateProjectPage() {
 
           {/* ===== Payment & Legal ===== */}
           <h2>Payment & Legal</h2>
-          <div className="grid-3">
+          <div className="form-grid-3">
             <div className="ad-form-group">
               <label htmlFor="paymentPlanType">Payment Plan Type</label>
               <input
@@ -1018,31 +1019,6 @@ export default function CreateProjectPage() {
               />
             </div>
 
-            {/* Escrow Account — radio Yes/No */}
-            <div className="ad-label-group">
-              <label className="block">Escrow Account</label>
-              <div style={{ display: "flex", gap: 12 }}>
-                <label>
-                  <input
-                    type="radio"
-                    name="escrowAccountRadio"
-                    checked={form.escrowAccount === true}
-                    onChange={() => setRadioBoolean("escrowAccount", true)}
-                  />{" "}
-                  Yes
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="escrowAccountRadio"
-                    checked={form.escrowAccount === false}
-                    onChange={() => setRadioBoolean("escrowAccount", false)}
-                  />{" "}
-                  No
-                </label>
-              </div>
-            </div>
-
             <div className="ad-form-group">
               <label htmlFor="nocStatus">NOC Status</label>
               <input
@@ -1059,6 +1035,30 @@ export default function CreateProjectPage() {
                   <option key={v} value={v} />
                 ))}
               </datalist>
+            </div>
+          </div>
+          {/* Escrow Account — radio Yes/No */}
+          <div className="ad-label-group">
+            <label className="block">Escrow Account</label>
+            <div style={{ display: "flex", gap: 12 }}>
+              <label>
+                <input
+                  type="radio"
+                  name="escrowAccountRadio"
+                  checked={form.escrowAccount === true}
+                  onChange={() => setRadioBoolean("escrowAccount", true)}
+                />{" "}
+                Yes
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="escrowAccountRadio"
+                  checked={form.escrowAccount === false}
+                  onChange={() => setRadioBoolean("escrowAccount", false)}
+                />{" "}
+                No
+              </label>
             </div>
           </div>
 
@@ -1138,105 +1138,109 @@ export default function CreateProjectPage() {
 
           {/* ===== Images (existing) ===== */}
           <h2>Images</h2>
-          {["featuredImages", "sidebarImages", "gallery"].map((key) => (
-            <div className="ad-label-group" key={key}>
-              <label>Upload {key}</label>
-              <input
-                type="file"
-                multiple
-                onChange={(e) => handleImageUpload(e, key)}
-              />
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                {(form[key] || []).map((url, i) => (
-                  <div key={i} style={{ position: "relative" }}>
-                    <Image src={url} width={80} height={80} alt={key} />
-                    <button
-                      type="button"
-                      onClick={() => removeImage(key, url)}
-                      style={removeBtnStyle}
-                    >
-                      ×
-                    </button>
-                  </div>
-                ))}
+          <div className="form-grid-3 ">
+            {["featuredImages", "sidebarImages", "gallery"].map((key) => (
+              <div className="ad-label-group" key={key}>
+                <label>Upload {key}</label>
+                <input
+                  type="file"
+                  multiple
+                  onChange={(e) => handleImageUpload(e, key)}
+                />
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  {(form[key] || []).map((url, i) => (
+                    <div key={i} style={{ position: "relative" }}>
+                      <Image src={url} width={80} height={80} alt={key} />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(key, url)}
+                        style={removeBtnStyle}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
           {/* ===== Additional Media (arrays) ===== */}
           <h2>Additional Media</h2>
-          {IMAGE_ARRAY_KEYS.map((key) => (
-            <div className="ad-label-group" key={key}>
-              <label>Upload {key}</label>
-              <input
-                type="file"
-                multiple
-                onChange={(e) => handleImageUpload(e, key)}
-              />
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                {(form[key] || []).map((url, i) => (
-                  <div key={i} style={{ position: "relative" }}>
-                    <Image src={url} width={80} height={80} alt={key} />
+          <div className="form-grid-3">
+            {IMAGE_ARRAY_KEYS.map((key) => (
+              <div className="ad-label-group" key={key}>
+                <label>Upload {key}</label>
+                <input
+                  type="file"
+                  multiple
+                  onChange={(e) => handleImageUpload(e, key)}
+                />
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  {(form[key] || []).map((url, i) => (
+                    <div key={i} style={{ position: "relative" }}>
+                      <Image src={url} width={80} height={80} alt={key} />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(key, url)}
+                        style={removeBtnStyle}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* ===== Documents (single) ===== */}
+          <h2>Documents</h2>
+          <div className="form-grid-3">
+            {[
+              ["projectBrochure", "Project Brochure"],
+              ["floorPlansPdf", "Floor Plans PDF"],
+              ["paymentPlanPdf", "Payment Plan PDF"],
+              ["masterPlanPdf", "Master Plan PDF"],
+              ["nocDocuments", "NOC Documents"],
+              ["reraCertificate", "RERA Certificate"],
+            ].map(([key, label]) => (
+              <div className="ad-label-group" key={key}>
+                <label>{label}</label>
+                <input
+                  type="file"
+                  onChange={(e) => handleImageUpload(e, key, true)}
+                />
+                {form[key] && (
+                  <div
+                    style={{
+                      marginTop: 8,
+                      position: "relative",
+                      display: "inline-block",
+                    }}
+                  >
+                    <a
+                      href={form[key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: "underline" }}
+                    >
+                      {form[key]}
+                    </a>
                     <button
                       type="button"
-                      onClick={() => removeImage(key, url)}
-                      style={removeBtnStyle}
+                      onClick={() => clearSingleFile(key)}
+                      style={removeBtnStyleSmall}
                     >
                       ×
                     </button>
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          ))}
-
-          {/* ===== Documents (single) ===== */}
-          <h2>Documents</h2>
-          {[
-            ["projectBrochure", "Project Brochure"],
-            ["floorPlansPdf", "Floor Plans PDF"],
-            ["paymentPlanPdf", "Payment Plan PDF"],
-            ["masterPlanPdf", "Master Plan PDF"],
-            ["nocDocuments", "NOC Documents"],
-            ["reraCertificate", "RERA Certificate"],
-          ].map(([key, label]) => (
-            <div className="ad-label-group" key={key}>
-              <label>{label}</label>
-              <input
-                type="file"
-                onChange={(e) => handleImageUpload(e, key, true)}
-              />
-              {form[key] && (
-                <div
-                  style={{
-                    marginTop: 8,
-                    position: "relative",
-                    display: "inline-block",
-                  }}
-                >
-                  <a
-                    href={form[key]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: "underline" }}
-                  >
-                    {form[key]}
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => clearSingleFile(key)}
-                    style={removeBtnStyleSmall}
-                  >
-                    ×
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
-
+            ))}
+          </div>
           {/* ===== Floorplan ===== */}
           <h2>Floorplan Info</h2>
-          <div className="grid-2">
+          <div className="form-grid-4">
             <div className="ad-form-group">
               <label htmlFor="unit">Unit</label>
               <input
