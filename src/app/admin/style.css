@@ -688,3 +688,21 @@ aside.sidebar .mobile-only {
   border: 1px solid var(--foreground);
   padding: 15px 15px;
 }
+
+.admin-form-sec .form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.admin-form-sec .form-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+.admin-form-sec .form-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
+}
