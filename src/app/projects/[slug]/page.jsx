@@ -237,33 +237,35 @@ export default function SingleProjectPage() {
       {(project.promotionalVideo ||
         project.virtualTourVideo ||
         project.droneFootage) && (
-        <section className="container" style={{ marginTop: 24 }}>
-          <h2 className="title-4">Project Videos</h2>
-          <div className="grid-3" style={{ gap: 24 }}>
-            {project.promotionalVideo && (
-              <div
-                className="video-embed"
-                dangerouslySetInnerHTML={{
-                  __html: embedHTML(project.promotionalVideo),
-                }}
-              />
-            )}
-            {project.virtualTourVideo && (
-              <div
-                className="video-embed"
-                dangerouslySetInnerHTML={{
-                  __html: embedHTML(project.virtualTourVideo),
-                }}
-              />
-            )}
-            {project.droneFootage && (
-              <div
-                className="video-embed"
-                dangerouslySetInnerHTML={{
-                  __html: embedHTML(project.droneFootage),
-                }}
-              />
-            )}
+        <section className="sp-video-sec">
+          <div className="container-full-width">
+            {/* <h2 className="title-4">Project Videos</h2> */}
+            <div className="grid-3">
+              {project.promotionalVideo && (
+                <div
+                  className="video-embed"
+                  dangerouslySetInnerHTML={{
+                    __html: embedHTML(project.promotionalVideo),
+                  }}
+                />
+              )}
+              {project.virtualTourVideo && (
+                <div
+                  className="video-embed"
+                  dangerouslySetInnerHTML={{
+                    __html: embedHTML(project.virtualTourVideo),
+                  }}
+                />
+              )}
+              {project.droneFootage && (
+                <div
+                  className="video-embed"
+                  dangerouslySetInnerHTML={{
+                    __html: embedHTML(project.droneFootage),
+                  }}
+                />
+              )}
+            </div>
           </div>
         </section>
       )}

@@ -668,3 +668,23 @@ aside.sidebar .mobile-only {
   display: block;
   max-width: 80px;
 }
+
+/* 
+=========================
+   fix Form 
+=========================
+*/
+.admin-form-sec label {
+  color: #aaa;
+  font-size: 16px;
+  transition: all 0.3s;
+  position: relative;
+  top: inherit;
+  left: inherit;
+}
+.admin-form-sec input,
+.admin-form-sec textarea,
+.admin-form-sec select {
+  border: 1px solid var(--foreground);
+  padding: 15px 15px;
+}
