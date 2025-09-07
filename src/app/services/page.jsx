@@ -38,11 +38,11 @@ export default function page() {
 
       <section className="sarvice-page-sec-1">
         <div className="container">
-          <h2 class="title-4 uppercase center">Our services</h2>
+          <h2 className="title-4 uppercase center">Our services</h2>
 
           <div className="service-grid">
             <div className="box">
-              <h3 class="title-5">Land Acquisition & Development</h3>
+              <h3 className="title-5">Land Acquisition & Development</h3>
               <p>
                 We identify and acquire strategic land parcels, transforming
                 them into vibrant, master-planned communities that offer
@@ -53,7 +53,7 @@ export default function page() {
               </p>
             </div>
             <div className="box">
-              <h3 class="title-5">Project Planning & Management</h3>
+              <h3 className="title-5">Project Planning & Management</h3>
               <p>
                 From initial concept and design through to construction and
                 handover, our comprehensive project management ensures timely
