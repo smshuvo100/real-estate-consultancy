@@ -2752,7 +2752,9 @@ section.full-image-7 img {
 section.about.container-full-width .tab-text p span {
   background: transparent !important;
 }
-
+section.sp-section .sp-pin {
+  display: none;
+}
 /* Mobile */
 @media (max-width: 767px) {
 }
