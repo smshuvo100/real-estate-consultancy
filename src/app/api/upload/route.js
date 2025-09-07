@@ -1,9 +1,8 @@
 // src/app/api/upload/route.js
-export const runtime = "nodejs";
+export const runtime = "nodejs"; // or "edge" – both work with Blob
+export const dynamic = "force-dynamic"; // ensure no static optimization
 
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
-import { existsSync } from "fs";
+import { put } from "@vercel/blob";
 
 export async function POST(req) {
   try {
@@ -11,39 +10,30 @@ export async function POST(req) {
     const file = formData.get("file");
 
     if (!file) {
-      return new Response(
-        JSON.stringify({ success: false, message: "No file provided" }),
+      return Response.json(
+        { success: false, message: "No file provided" },
         { status: 400 }
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // clean filename
+    const base = `${Date.now()}-${(file.name || "upload")
+      .replace(/\s+/g, "-")
+      .replace(/[^a-zA-Z0-9._-]/g, "")}`;
 
-    const uploadDir = path.join(process.cwd(), "public/blog");
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true });
-    }
+    // Upload directly to Vercel Blob (public)
+    const blob = await put(`blog/${base}`, file, {
+      access: "public",
+      addRandomSuffix: false, // keep the name predictable (optional)
+      contentType: file.type || "application/octet-stream",
+    });
 
-    const filename = Date.now() + "-" + file.name.replace(/\s+/g, "-");
-    const filepath = path.join(uploadDir, filename);
-
-    await writeFile(filepath, buffer);
-
-    return new Response(
-      JSON.stringify({
-        success: true,
-        url: `/blog/${filename}`,
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    // blob.url is a public, permanent, CDN URL
+    return Response.json({ success: true, url: blob.url }, { status: 200 });
   } catch (e) {
-    console.error(e);
-    return new Response(
-      JSON.stringify({ success: false, message: "Server error" }),
+    console.error("Upload error:", e);
+    return Response.json(
+      { success: false, message: "Server error" },
       { status: 500 }
     );
   }
