@@ -308,60 +308,62 @@ export default function SingleProjectPage() {
         project.reraRegistrationNumber ||
         project.nocStatus ||
         typeof project.escrowAccount === "boolean") && (
-        <section className="container">
-          <h2 className="title-4">Payment & Legal</h2>
-          <div className="grid-3">
-            <div>
-              <p>
-                <strong>Payment Plan:</strong>{" "}
-                {project.paymentPlanType || "N/A"}
-              </p>
-              <p>
-                <strong>Down Payment %:</strong>{" "}
-                {project.downPaymentPercentage || "N/A"}
-              </p>
-              <p>
-                <strong>Service Charge / sq ft:</strong>{" "}
-                {project.serviceChargePerSqFt || "N/A"}
-              </p>
-              <p>
-                <strong>Booking Amount:</strong>{" "}
-                {project.bookingAmount || "N/A"}
-              </p>
-              <p>
-                <strong>Registration Fee:</strong>{" "}
-                {project.registrationFee || "N/A"}
-              </p>
-            </div>
-            <div>
-              <p>
-                <strong>Title Deed:</strong> {project.titleDeedType || "N/A"}
-              </p>
-              <p>
-                <strong>Ownership:</strong>{" "}
-                {project.ownershipEligibility || "N/A"}
-              </p>
-              <p>
-                <strong>RERA #:</strong>{" "}
-                {project.reraRegistrationNumber || "N/A"}
-              </p>
-              <p>
-                <strong>NOC Status:</strong> {project.nocStatus || "N/A"}
-              </p>
-              <p>
-                <strong>Escrow Account:</strong>{" "}
-                {project.escrowAccount ? "Yes" : "No"}
-              </p>
-            </div>
-            <div>
-              <p>
-                <strong>Plan Details:</strong>
-              </p>
-              <div
-                className="muted"
-                style={{ whiteSpace: "pre-wrap", opacity: 0.9 }}
-              >
-                {project.paymentPlanDetails || "—"}
+        <section className="payment-legal">
+          <div className="container">
+            <h2 className="title-4">Payment & Legal</h2>
+            <div className="grid-3">
+              <div className="box">
+                <p>
+                  <strong>Payment Plan:</strong>{" "}
+                  {project.paymentPlanType || "N/A"}
+                </p>
+                <p>
+                  <strong>Down Payment %:</strong>{" "}
+                  {project.downPaymentPercentage || "N/A"}
+                </p>
+                <p>
+                  <strong>Service Charge / sq ft:</strong>{" "}
+                  {project.serviceChargePerSqFt || "N/A"}
+                </p>
+                <p>
+                  <strong>Booking Amount:</strong>{" "}
+                  {project.bookingAmount || "N/A"}
+                </p>
+                <p>
+                  <strong>Registration Fee:</strong>{" "}
+                  {project.registrationFee || "N/A"}
+                </p>
+              </div>
+              <div className="box">
+                <p>
+                  <strong>Title Deed:</strong> {project.titleDeedType || "N/A"}
+                </p>
+                <p>
+                  <strong>Ownership:</strong>{" "}
+                  {project.ownershipEligibility || "N/A"}
+                </p>
+                <p>
+                  <strong>RERA #:</strong>{" "}
+                  {project.reraRegistrationNumber || "N/A"}
+                </p>
+                <p>
+                  <strong>NOC Status:</strong> {project.nocStatus || "N/A"}
+                </p>
+                <p>
+                  <strong>Escrow Account:</strong>{" "}
+                  {project.escrowAccount ? "Yes" : "No"}
+                </p>
+              </div>
+              <div className="box text">
+                <p>
+                  <strong>Plan Details:</strong>
+                </p>
+                <div
+                  className="muted"
+                  style={{ whiteSpace: "pre-wrap", opacity: 0.9 }}
+                >
+                  {project.paymentPlanDetails || "—"}
+                </div>
               </div>
             </div>
           </div>
@@ -377,39 +379,41 @@ export default function SingleProjectPage() {
         (Array.isArray(project.suitableFor) && project.suitableFor.length) ||
         (Array.isArray(project.targetAudience) &&
           project.targetAudience.length)) && (
-        <section className="container">
-          <h2 className="title-4">Investment Information</h2>
-          <div className="grid-3">
-            <div>
-              <p>
-                <strong>Expected ROI:</strong> {project.expectedROI || "N/A"}
-              </p>
-              <p>
-                <strong>Rental Yield:</strong> {project.rentalYield || "N/A"}
-              </p>
-              <p>
-                <strong>Capital Appreciation:</strong>{" "}
-                {project.capitalAppreciation || "N/A"}
-              </p>
-            </div>
-            <div>
-              <p>
-                <strong>Mortgage Available:</strong>{" "}
-                {project.mortgageAvailable ? "Yes" : "No"}
-              </p>
-              <p>
-                <strong>Bank Financing %:</strong>{" "}
-                {project.bankFinancingPercentage || "N/A"}
-              </p>
-            </div>
-            <div>
-              <p>
-                <strong>Suitable For:</strong> {commaJoin(project.suitableFor)}
-              </p>
-              <p>
-                <strong>Target Audience:</strong>{" "}
-                {commaJoin(project.targetAudience)}
-              </p>
+        <section className="payment-legal">
+          <div className="container">
+            <h2 className="title-4">Investment Information</h2>
+            <div className="grid-2">
+              <div className="box">
+                <p>
+                  <strong>Expected ROI:</strong> {project.expectedROI || "N/A"}
+                </p>
+                <p>
+                  <strong>Rental Yield:</strong> {project.rentalYield || "N/A"}
+                </p>
+                <p>
+                  <strong>Capital Appreciation:</strong>{" "}
+                  {project.capitalAppreciation || "N/A"}
+                </p>
+                <p>
+                  <strong>Mortgage Available:</strong>{" "}
+                  {project.mortgageAvailable ? "Yes" : "No"}
+                </p>
+                <p>
+                  <strong>Bank Financing %:</strong>{" "}
+                  {project.bankFinancingPercentage || "N/A"}
+                </p>
+              </div>
+
+              <div className="box text">
+                <div className="list">
+                  <strong>Suitable For:</strong>{" "}
+                  <div>{commaJoin(project.suitableFor)}</div>
+                </div>
+                <div className="list">
+                  <strong>Target Audience:</strong>
+                  <div>{commaJoin(project.targetAudience)}</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -459,31 +463,21 @@ export default function SingleProjectPage() {
         ["Virtual Tour Images", project.virtualTourImages],
       ].map(([title, arr]) =>
         Array.isArray(arr) && arr.length ? (
-          <section key={title} className="container" style={{ marginTop: 24 }}>
-            <h2 className="title-4">{title}</h2>
-            <div
-              className="image-grid"
-              style={{
-                display: "grid",
-                gap: 12,
-                gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))",
-              }}
-            >
-              {arr.map((src, i) => (
-                <div
-                  key={i}
-                  className="grid-cell"
-                  style={{ position: "relative", aspectRatio: "4/3" }}
-                >
-                  <Image
-                    src={src}
-                    alt={`${title} ${i + 1}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: "cover", borderRadius: 8 }}
-                  />
-                </div>
-              ))}
+          <section key={title} className="full-image-7">
+            <div className="container">
+              <h2 className="title-4">{title}</h2>
+              <div className="grid">
+                {arr.map((src, i) => (
+                  <div key={i} className="grid-cell">
+                    <Image
+                      src={src}
+                      alt={`${title} ${i + 1}`}
+                      width={1920}
+                      height={1080}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         ) : null

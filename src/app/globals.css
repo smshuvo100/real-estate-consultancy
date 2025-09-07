@@ -2715,6 +2715,40 @@ section.sp-video-sec .grid-3 {
 section.sp-video-sec .grid-3 .video-embed iframe {
   width: 100%;
 }
+section.payment-legal .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+section.payment-legal .grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+section.payment-legal .box {
+  border: 1px solid #3c3838;
+  border-radius: 15px;
+  padding: 20px 20px;
+}
+section.payment-legal .box p {
+  display: flex;
+  justify-content: space-between;
+}
+section.payment-legal h2.title-4 {
+  margin-bottom: 30px;
+}
+section.payment-legal {
+  padding-bottom: 100px;
+}
+section.full-image-7 h2.title-4 {
+  margin-bottom: 40px;
+}
+section.full-image-7 {
+  margin-bottom: 40px;
+}
+section.full-image-7 img {
+  border-radius: 15px;
+}
 
 /* Mobile */
 @media (max-width: 767px) {
