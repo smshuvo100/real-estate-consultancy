@@ -64,7 +64,7 @@ export default function page() {
               </p>
             </div>
             <div className="box">
-              <h3 class="title-5">Sustainable Development</h3>
+              <h3 className="title-5">Sustainable Development</h3>
               <p>
                 We integrate cutting-edge green technologies and sustainable
                 practices to create eco-friendly environments that promote a
@@ -80,7 +80,7 @@ export default function page() {
 
       <section className="sarvice-page-sec-2">
         <div className="container">
-          <h2 class="title-4 uppercase center">Business Diversification</h2>
+          <h2 className="title-4 uppercase center">Business Diversification</h2>
 
           <div className="service-grid">
             <div className="box">
@@ -90,7 +90,7 @@ export default function page() {
                 width={1000}
                 height={900}
               />
-              <h3 class="title-5">Logistics Services</h3>
+              <h3 className="title-5">Logistics Services</h3>
               <p>
                 Through Al Mamlaka Logistics Services, we provide comprehensive
                 logistics solutions including warehousing, distribution,
@@ -100,7 +100,7 @@ export default function page() {
                 international markets.
               </p>
 
-              <h3 class="title-6">Service Highlights:</h3>
+              <h3 className="title-6">Service Highlights:</h3>
 
               <ul>
                 <li>Dry and temperature-controlled warehousing</li>
@@ -118,7 +118,7 @@ export default function page() {
                 width={1000}
                 height={900}
               />
-              <h3 class="title-5">Exhibition Organization</h3>
+              <h3 className="title-5">Exhibition Organization</h3>
               <p>
                 Al Mamlaka Organizing Exhibitions specializes in planning and
                 executing professional exhibitions, trade shows, and corporate
@@ -127,7 +127,7 @@ export default function page() {
                 and services to targeted audiences.
               </p>
 
-              <h3 class="title-6">Service Highlights</h3>
+              <h3 className="title-6">Service Highlights</h3>
 
               <il>
                 <li>Trade show organization and management</li>
@@ -144,7 +144,7 @@ export default function page() {
                 width={1000}
                 height={900}
               />
-              <h3 class="title-5">Luxury Consumer Products</h3>
+              <h3 className="title-5">Luxury Consumer Products</h3>
               <p>
                 Expanding beyond real estate and services, we have successfully
                 launched Al Mamlaka Perfumes, a premium fragrance line that
@@ -152,7 +152,7 @@ export default function page() {
                 our ability to extend our brand into high-end consumer markets.
               </p>
 
-              <h3 class="title-6">Service Highlights</h3>
+              <h3 className="title-6">Service Highlights</h3>
 
               <ul>
                 <li>Premium fragrance formulations</li>
@@ -171,7 +171,7 @@ export default function page() {
           <div className="grid-box">
             {" "}
             <div className="box">
-              <h2 class="title-4 uppercase">WHY CHOOSE SFK?</h2>
+              <h2 className="title-4 uppercase">WHY CHOOSE SFK?</h2>
               <p>
                 SFK Real Estate Consultancy is distinguished by its visionary
                 approach, unwavering dedication to quality, and customer-centric
