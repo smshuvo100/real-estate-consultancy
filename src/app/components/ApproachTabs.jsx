@@ -18,8 +18,7 @@ const TABS = [
     ),
     title: "Market Research & Site Selection",
     blurb: [
-      "Comprehensive analysis of market trends, demographic patterns, and location potential",
-      "Identify prime development opportunities aligned with project goals",
+      "Comprehensive analysis of market trends, demographic patterns, and location potential to identify prime development opportunities.",
     ],
   },
   {
@@ -37,8 +36,7 @@ const TABS = [
     ),
     title: "Concept Development & Design",
     blurb: [
-      "Translate insights into clear concepts and experience frameworks",
-      "Create testable design directions and signature elements",
+      "Collaboration with world-class architects and designers to create distinctive, functional, and aesthetically pleasing spaces that reflect our commitment to excellence.",
     ],
   },
   {
@@ -55,8 +53,7 @@ const TABS = [
     ),
     title: "Project Planning & Execution",
     blurb: [
-      "Phased roadmaps, budgets, and risk registers",
-      "Vendor coordination and on-site supervision",
+      "Detailed planning and precise execution with rigorous quality control measures to ensure timely delivery and superior results.",
     ],
   },
   {
@@ -80,8 +77,7 @@ const TABS = [
     ),
     title: "Sustainable Implementation",
     blurb: [
-      "High-performance materials and energy-efficient systems",
-      "Compliance with regional sustainability standards",
+      "Integration of environmentally responsible practices and technologies throughout the development process.",
     ],
   },
   {
@@ -99,8 +95,7 @@ const TABS = [
     ),
     title: "Ongoing Management & Enhancement",
     blurb: [
-      "Operational playbooks, KPI dashboards, and periodic audits",
-      "Iterative enhancement to maximize asset value",
+      "Continued oversight and proactive management to maintain property value and enhance user experience over time.",
     ],
   },
 ];

@@ -2749,6 +2749,9 @@ section.full-image-7 {
 section.full-image-7 img {
   border-radius: 15px;
 }
+section.about.container-full-width .tab-text p span {
+  background: transparent !important;
+}
 
 /* Mobile */
 @media (max-width: 767px) {

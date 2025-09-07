@@ -8,6 +8,8 @@ import { About } from "../components/About";
 import { BusinessDiversificationLeft } from "../components/BusinessDiversificationLeft";
 import { BusinessDiversificationRight } from "../components/BusinessDiversificationRight";
 import { OurApproach } from "../components/OurApproach";
+
+import Image from "next/image";
 // ✅ fetch from MongoDB
 async function getAboutTabs() {
   const host = headers().get("host");
@@ -72,8 +74,7 @@ export default async function Page() {
 
       <TeamIntro />
       <OurTeam />
-      <div className="margin-bottom">
-        {/* businessDiversification.jsx */}
+      {/* <div className="margin-bottom">
         <BusinessDiversificationLeft
           title="Logistics Services"
           text={`<p>
@@ -143,10 +144,20 @@ export default async function Page() {
       `}
           image="full-image.webp"
         />
-      </div>
-
+      </div> */}
+      <section className="full-image-7">
+        <div className="container">
+          <h2 class="title-4 center">REGIONAL PRESENCE</h2>
+          <Image
+            src="/images/map-about.webp"
+            alt="region"
+            width={1920}
+            height={1080}
+          />
+        </div>
+      </section>
       {/* OurApproach.jsx */}
-      <OurApproach />
+      {/* <OurApproach /> */}
       <Fullimage />
     </>
   );

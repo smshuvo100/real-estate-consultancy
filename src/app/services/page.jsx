@@ -80,7 +80,7 @@ export default function page() {
 
       <section className="sarvice-page-sec-2">
         <div className="container">
-          <h2 class="title-4 uppercase center">Our services</h2>
+          <h2 class="title-4 uppercase center">Business Diversification</h2>
 
           <div className="service-grid">
             <div className="box">
