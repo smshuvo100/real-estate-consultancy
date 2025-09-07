@@ -77,6 +77,7 @@ export default function Header() {
             <button className="close-btn" onClick={() => setMenuOpen(false)}>
               <FiX />
             </button>
+
             <nav>
               <Link href="/" onClick={() => setMenuOpen(false)}>
                 Home
@@ -87,7 +88,7 @@ export default function Header() {
               <Link href="/about" onClick={() => setMenuOpen(false)}>
                 About
               </Link>
-              <Link href="/why-choose-us" onClick={() => setMenuOpen(false)}>
+              <Link href="/services" onClick={() => setMenuOpen(false)}>
                 Why Choose Us
               </Link>
               <Link href="/blog" onClick={() => setMenuOpen(false)}>
