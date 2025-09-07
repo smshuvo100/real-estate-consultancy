@@ -89,7 +89,7 @@ export default function Header() {
                 About
               </Link>
               <Link href="/services" onClick={() => setMenuOpen(false)}>
-                Why Choose Us
+                Services
               </Link>
               <Link href="/blog" onClick={() => setMenuOpen(false)}>
                 Blog
